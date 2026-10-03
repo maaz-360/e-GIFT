@@ -1,0 +1,95 @@
+@model GenderViewModel
+
+@{
+    ViewData["Title"] = "Create Gender";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>Create Gender</h2>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Back to List
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-header">
+            <h5 class="mb-0">
+                Gender Information
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Create" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3">
+                </div>
+
+                <div class="row">
+
+                    <!-- Gender Name -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="GenderName" class="form-label">
+                        </label>
+
+                        <input asp-for="GenderName" class="form-control" placeholder="Enter gender name" />
+
+                        <span asp-validation-for="GenderName" class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <!-- Description -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Description" class="form-label">
+                        </label>
+
+                        <input asp-for="Description" class="form-control" placeholder="Enter description" />
+
+                        <span asp-validation-for="Description" class="text-danger">
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <div class="d-flex justify-content-end gap-2">
+
+                    <a asp-action="Index" class="btn btn-secondary">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="btn btn-primary">
+                        Create Gender
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync(
+            "_ValidationScriptsPartial");
+    }
+
+}

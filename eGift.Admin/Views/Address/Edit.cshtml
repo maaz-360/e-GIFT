@@ -1,0 +1,198 @@
+@model AddressViewModel
+
+@{
+    ViewData["Title"] = "Edit Address";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>Edit Address</h2>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Back to List
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-header">
+            <h5 class="mb-0">Address Information</h5>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Edit" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="Id" />
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                <div class="row">
+
+                    <!-- Street 1 -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Street1" class="form-label">
+                        </label>
+
+                        <input asp-for="Street1"
+                               class="form-control"
+                               placeholder="Enter street 1" />
+
+                        <span asp-validation-for="Street1"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Street 2 -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Street2" class="form-label">
+                        </label>
+
+                        <input asp-for="Street2"
+                               class="form-control"
+                               placeholder="Enter street 2" />
+
+                        <span asp-validation-for="Street2"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Country -->
+                    <div class="col-md-4 mb-3">
+
+                        <label asp-for="CountryId" class="form-label">
+                            Country
+                        </label>
+
+                        <select asp-for="CountryId"
+                                asp-items="Model.Countries"
+                                class="form-select"
+                                id="CountryId">
+
+                            <option value="">
+                                -- Select Country --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="CountryId"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- State -->
+                    <div class="col-md-4 mb-3">
+
+                        <label asp-for="StateId" class="form-label">
+                            State
+                        </label>
+
+                        <select asp-for="StateId"
+                                asp-items="Model.States"
+                                class="form-select"
+                                id="StateId">
+
+                            <option value="">
+                                -- Select State --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="StateId"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- City -->
+                    <div class="col-md-4 mb-3">
+
+                        <label asp-for="CityId" class="form-label">
+                            City
+                        </label>
+
+                        <select asp-for="CityId"
+                                asp-items="Model.Cities"
+                                class="form-select"
+                                id="CityId">
+
+                            <option value="">
+                                -- Select City --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="CityId"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Pin Code -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="PinCode" class="form-label">
+                        </label>
+
+                        <input asp-for="PinCode"
+                               class="form-control"
+                               placeholder="Enter pin code" />
+
+                        <span asp-validation-for="PinCode"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <div class="d-flex justify-content-end gap-2">
+
+                    <a asp-action="Index"
+                       class="btn btn-secondary">
+                        Cancel
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Update Address
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="~/js/address.js"
+            asp-append-version="true"></script>
+}

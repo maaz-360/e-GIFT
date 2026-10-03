@@ -1,0 +1,197 @@
+@model CustomerResponseViewModel
+
+@{
+    ViewData["Title"] = "Customer Details";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Customer Details</h2>
+
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                Edit
+            </a>
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Back to List
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+
+        <div class="card-header">
+            <h5 class="mb-0">
+                @Model.FirstName @Model.LastName
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">
+                    First Name
+                </div>
+                <div class="col-md-9">
+                    @Model.FirstName
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">
+                    Last Name
+                </div>
+                <div class="col-md-9">
+                    @Model.LastName
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">
+                    Date of Birth
+                </div>
+                <div class="col-md-9">
+                    @Model.DateofBirth.ToDateString()
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">
+                    Gender
+                </div>
+                <div class="col-md-9">
+                    @Model.GenderName
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">
+                    Mobile
+                </div>
+                <div class="col-md-9">
+                    @Model.Mobile
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">
+                    Email
+                </div>
+                <div class="col-md-9">
+                    @(Model.Email ?? "-")
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">
+                    Address
+                </div>
+                <div class="col-md-9">
+                    @Model.FullAddress
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">
+                    Role
+                </div>
+                <div class="col-md-9">
+                    @Model.RoleName
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">
+                    Status
+                </div>
+                <div class="col-md-9">
+                    @if (Model.IsActive)
+                    {
+                        <span class="badge bg-success">
+                            Active
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">
+                            Inactive
+                        </span>
+                    }
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">
+                    Default Customer
+                </div>
+                <div class="col-md-9">
+                    @if (Model.IsDefault)
+                    {
+                        <span class="badge bg-primary">
+                            Yes
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">
+                            No
+                        </span>
+                    }
+                </div>
+            </div>
+            <!-- Created Date -->
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Created Date
+                </div>
+
+                <div class="col-md-9">
+                    @Model.CreatedDate.ToDateString()
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">
+                    Last Login
+                </div>
+                <div class="col-md-9">
+                    @Model.LastLogin.ToDateTimeString()
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.ProfileImagePath))
+            {
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">
+                        Profile Image
+                    </div>
+
+                    <div class="col-md-9">
+                        <img src="@Url.Action(
+                         "Image",
+                         "Customer",
+                         new
+                         {
+                             fileName = System.IO.Path.GetFileName(
+                                 Model.ProfileImagePath)
+                         })" alt="Customer Profile" class="img-thumbnail" style="width:150px;
+                        height:150px;
+                        object-fit:cover;" />
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">
+                    No profile image available.
+                </p>
+            }
+
+        </div>
+    </div>
+
+</div>

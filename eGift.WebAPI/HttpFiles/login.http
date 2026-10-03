@@ -1,0 +1,67 @@
+@eGift_HostLogin = http://localhost:5270
+@APIKey = n62p2wjy26ro0qy54n8o7kbiwho4nm9g
+
+###
+
+GET {{eGift_HostLogin}}/api/login
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+GET {{eGift_HostLogin}}/api/login/1
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+POST {{eGift_HostLogin}}/api/login
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 0,
+  "refId": 1,
+  "refType": "Employee",
+  "userName": "john.doe",
+  "password": "Password123",
+  "roleId": 1,
+  "isActive": true,
+  "logInDate": "2026-08-11T10:00:00",
+  "lastLoginDate": null,
+  "isDeleted": false,
+  "createdBy": 1,
+  "createdDate": "2026-08-11T10:00:00"
+}
+
+###
+
+PUT {{eGift_HostLogin}}/api/login/1
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 1,
+  "refId": 1,
+  "refType": "Employee",
+  "userName": "updated.john",
+  "password": "UpdatedPassword123",
+  "roleId": 1,
+  "isActive": true,
+  "logInDate": "2026-08-11T10:00:00",
+  "lastLoginDate": "2026-08-11T11:00:00",
+  "isDeleted": false,
+  "updatedBy": 1,
+  "updatedDate": "2026-08-11T11:00:00"
+}
+
+###
+
+DELETE {{eGift_HostLogin}}/api/login/1?loginUserId=1&deletedDate=2026-08-11
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+GET {{eGift_HostLogin}}/api/login/employee?userName=Maaz&password=Admin@123
+Accept: application/json
+X-API-Key: {{APIKey}}

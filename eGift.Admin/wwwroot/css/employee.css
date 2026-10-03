@@ -1,0 +1,155 @@
+:root {
+    --egift-blue: #29B6F6;
+    --egift-blue-dark: #1E9FDD;
+    --egift-blue-light: #E9F7FE;
+    --egift-text-dark: #1A1A2E;
+}
+
+.egift-page-header h2 {
+    font-weight: 800;
+    color: var(--egift-text-dark);
+    letter-spacing: -0.5px;
+}
+
+.egift-page-header p {
+    color: #8A8FA3;
+}
+
+.btn-egift-primary {
+    background-color: var(--egift-blue);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 0.6rem 1.25rem;
+    box-shadow: 0 4px 12px rgba(41, 182, 246, 0.35);
+    transition: all 0.15s ease-in-out;
+}
+
+.btn-egift-primary:hover {
+    background-color: var(--egift-blue-dark);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(41, 182, 246, 0.45);
+}
+
+.egift-card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(20, 20, 43, 0.06);
+    overflow: hidden;
+}
+
+/* Only the table scrolls — page itself stays fixed. ~5 rows visible before scrolling. */
+.egift-table-scroll {
+    max-height: 340px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.egift-table {
+    font-size: 0.95rem;
+}
+
+/* Sticky header stays visible while rows scroll underneath it */
+.egift-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+    background-color: var(--egift-blue-light);
+    color: var(--egift-blue-dark);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    /* Header separator */
+    border-bottom: 2px solid #000;
+
+    padding: 1rem 0.75rem;
+    white-space: nowrap;
+}
+
+.egift-table tbody tr {
+    /* Row separator */
+    border-bottom: 1px solid #000;
+}
+
+.egift-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.egift-table tbody tr:hover {
+    background-color: var(--egift-blue-light);
+}
+
+.egift-table td {
+    padding: 1rem 0.75rem;
+    vertical-align: middle;
+}
+
+.egift-table td,
+.egift-table th {
+    border-right: none;
+}
+
+/* Keep Created date on one line */
+.egift-table th:nth-child(8),
+.egift-table td:nth-child(8) {
+    white-space: nowrap;
+}
+
+.egift-name {
+    font-weight: 600;
+    color: var(--egift-text-dark);
+    font-size: 0.96rem;
+}
+
+.egift-sub {
+    font-size: 0.8rem;
+    color: #9AA0B4;
+}
+
+.badge-egift-active {
+    background-color: #E6F9F0;
+    color: #16A34A;
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 0.45em 0.9em;
+    font-size: 0.8rem;
+}
+
+.badge-egift-inactive {
+    background-color: #FDECEC;
+    color: #E11D48;
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 0.45em 0.9em;
+    font-size: 0.8rem;
+}
+
+.egift-empty-icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-color: var(--egift-blue-light);
+    color: var(--egift-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    font-size: 2.25rem;
+}
+
+.btn-group>form {
+    display: flex;
+    margin: 0;
+}
+
+.btn-group>form>.btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+}

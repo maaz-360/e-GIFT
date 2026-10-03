@@ -1,0 +1,297 @@
+@model eGift.Store.Models.ViewModels.CustomerViewModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+
+<div class="register-page">
+
+    <!-- Left Section -->
+    <div class="register-left">
+
+        <div class="welcome-content">
+
+            <h1>Welcome to eGift</h1>
+
+            <p>
+                Create your account and start shopping
+                with eGift.
+            </p>
+
+            <div class="welcome-line"></div>
+
+            <span>
+                Join eGift and enjoy a simple shopping experience.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- Right Section -->
+    <div class="register-right">
+
+        <!-- Decorative Circles -->
+        <div class="circle circle-one"></div>
+        <div class="circle circle-two"></div>
+
+
+        <!-- Register Card -->
+        <div class="register-card">
+
+            <div class="register-header">
+
+                <h1>Create Account</h1>
+
+                <p>
+                    Register to get started
+                </p>
+
+            </div>
+
+
+            <form asp-controller="Account" asp-action="Register" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="validation-summary">
+                </div>
+
+
+                <!-- First Name / Last Name -->
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label asp-for="FirstName">
+                            First Name
+                        </label>
+
+                        <input asp-for="FirstName" class="register-input" placeholder="Enter first name"
+                               autocomplete="given-name" />
+
+                        <span asp-validation-for="FirstName" class="validation-error">
+                        </span>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label asp-for="LastName">
+                            Last Name
+                        </label>
+
+                        <input asp-for="LastName" class="register-input" placeholder="Enter last name"
+                               autocomplete="family-name" />
+
+                        <span asp-validation-for="LastName" class="validation-error">
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Username / Email -->
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label asp-for="UserName">
+                            User Name
+                        </label>
+
+                        <input asp-for="UserName" class="register-input" placeholder="Enter username"
+                               autocomplete="username" />
+
+                        <span asp-validation-for="UserName" class="validation-error">
+                        </span>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label asp-for="Email">
+                            Email
+                        </label>
+
+                        <input asp-for="Email" type="email" class="register-input" placeholder="Enter email"
+                               autocomplete="email" />
+
+                        <span asp-validation-for="Email" class="validation-error">
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Password / Confirm Password -->
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label asp-for="Password">
+                            Password
+                        </label>
+
+                        <div class="password-wrapper">
+
+                            <input asp-for="Password" id="passwordInput" type="password" class="register-input"
+                                   placeholder="Enter password" autocomplete="new-password" />
+
+                            <button type="button" class="password-toggle" id="passwordToggle">
+                                Show
+                            </button>
+
+                        </div>
+
+                        <span asp-validation-for="Password" class="validation-error">
+                        </span>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label asp-for="ConfirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <div class="password-wrapper">
+
+                            <input asp-for="ConfirmPassword" id="confirmPasswordInput" type="password"
+                                   class="register-input" placeholder="Confirm password" autocomplete="new-password" />
+
+                            <button type="button" class="password-toggle" id="confirmPasswordToggle">
+                                Show
+                            </button>
+
+                        </div>
+
+                        <span asp-validation-for="ConfirmPassword" class="validation-error">
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Date of Birth / Gender -->
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label asp-for="DateofBirth">
+                            Date of Birth
+                        </label>
+
+                        <input asp-for="DateofBirth" type="date" class="register-input" />
+
+                        <span asp-validation-for="DateofBirth" class="validation-error">
+                        </span>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label asp-for="GenderId">
+                            Gender
+                        </label>
+
+                        <select asp-for="GenderId" asp-items="Model.Genders" class="register-input">
+
+                            <option value="">
+                                -- Select Gender --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="GenderId" class="validation-error">
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Mobile -->
+                <div class="form-group full-width">
+
+                    <label asp-for="Mobile">
+                        Mobile
+                    </label>
+
+                    <input asp-for="Mobile" class="register-input" placeholder="Enter 10-digit mobile number"
+                           maxlength="10" autocomplete="tel" />
+
+                    <span asp-validation-for="Mobile" class="validation-error">
+                    </span>
+
+                </div>
+
+
+                <!-- Register Button -->
+                <button type="submit" class="register-button">
+
+                    Create Account
+
+                </button>
+
+
+                <!-- Login Link -->
+                <div class="login-link">
+
+                    <span>Already have an account?</span>
+
+                    <a asp-controller="Account" asp-action="Login">Login</a>
+                </div>
+            </form>
+
+
+            <div class="register-footer">
+                <span>© @DateTime.Now.Year</span>
+                <strong>eGift</strong>
+                <span>All rights reserved.</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+
+        function setupPasswordToggle(inputId, buttonId) {
+
+            const input = document.getElementById(inputId);
+            const button = document.getElementById(buttonId);
+
+            if (!input || !button) {return;}
+
+            button.addEventListener("click", function () {
+
+                if (input.type === "password") {
+                    input.type = "text";
+                    button.textContent = "Hide";
+                }
+                else {input.type = "password";button.textContent = "Show";
+                }
+            });
+        }
+        setupPasswordToggle("passwordInput","passwordToggle");
+        setupPasswordToggle("confirmPasswordInput","confirmPasswordToggle");
+
+    </script>
+}

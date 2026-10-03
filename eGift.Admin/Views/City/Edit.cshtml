@@ -1,0 +1,156 @@
+@model CityViewModel
+
+@{
+    ViewData["Title"] = "Edit City";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Edit City</h2>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Back to List
+        </a>
+    </div>
+
+    <div class="card">
+
+        <div class="card-header">
+            <h5 class="mb-0">City Information</h5>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Edit" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="Id" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3">
+                </div>
+
+                <div class="row">
+
+                    <!-- Country -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="CountryId" class="form-label">
+                            Country
+                        </label>
+
+                        <select asp-for="CountryId" asp-items="Model.Countries" class="form-select" id="CountryId">
+
+                            <option value="">
+                                -- Select Country --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="CountryId" class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <!-- State -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="StateId" class="form-label">
+                            State
+                        </label>
+
+                        <select asp-for="StateId" class="form-select" id="StateId">
+
+                            <option value="">
+                                -- Select State --
+                            </option>
+
+                            @if (Model.States != null)
+                            {
+                                foreach (var state in Model.States)
+                                {
+                                    <option value="@state.Value" selected="@(state.Value == Model.StateId.ToString())">
+                                        @state.Text
+                                    </option>
+                                }
+                            }
+
+                        </select>
+
+                        <span asp-validation-for="StateId" class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <!-- City Code -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="CityCode" class="form-label">
+                        </label>
+
+                        <input asp-for="CityCode" class="form-control" placeholder="Enter city code" />
+
+                        <span asp-validation-for="CityCode" class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <!-- City Name -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="CityName" class="form-label">
+                        </label>
+
+                        <input asp-for="CityName" class="form-control" placeholder="Enter city name" />
+
+                        <span asp-validation-for="CityName" class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <!-- Description -->
+                    <div class="col-12 mb-3">
+
+                        <label asp-for="Description" class="form-label">
+                        </label>
+
+                        <textarea asp-for="Description" class="form-control" rows="4"
+                                  placeholder="Enter city description"></textarea>
+
+                        <span asp-validation-for="Description" class="text-danger">
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <div class="d-flex justify-content-end gap-2">
+
+                    <a asp-action="Index" class="btn btn-secondary">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="btn btn-primary">
+                        Update City
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="~/js/city.js" asp-append-version="true"></script>
+}

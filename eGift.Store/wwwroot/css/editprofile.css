@@ -1,0 +1,411 @@
+/* ==========================================
+   Edit Profile Page
+========================================== */
+
+.edit-profile-page {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 30px 60px;
+}
+
+
+/* ==========================================
+   Header
+========================================== */
+
+.edit-profile-header {
+    background: linear-gradient(135deg, #ffffff, #f8f9fc);
+    border-radius: 18px;
+    padding: 36px;
+    margin-bottom: 25px;
+    border: 1px solid #e8eaf0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.edit-profile-header-content {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+
+/* ==========================================
+   Profile Image
+========================================== */
+
+.edit-profile-image-section {
+    flex-shrink: 0;
+}
+
+.edit-profile-image-wrapper {
+    width: 130px;
+    height: 130px;
+    position: relative;
+}
+
+.edit-profile-image,
+.edit-profile-placeholder {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+}
+
+.edit-profile-image {
+    object-fit: cover;
+    border: 4px solid #ffffff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.edit-profile-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eeeeee;
+    color: #555555;
+    font-size: 40px;
+    font-weight: 600;
+    border: 4px solid #ffffff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ==========================================
+   Change Photo
+========================================== */
+
+.change-photo-button {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 20px;
+
+    padding: 6px 12px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    white-space: nowrap;
+    cursor: pointer;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+
+    transition: 0.2s ease;
+}
+
+.change-photo-button:hover {
+    transform: translateX(-50%) translateY(-2px);
+}
+
+
+/* ==========================================
+   Header Text
+========================================== */
+
+.edit-profile-header-info h1 {
+    margin: 0 0 8px;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.edit-profile-header-info p {
+    margin: 0;
+    color: #777777;
+    font-size: 16px;
+}
+
+
+/* ==========================================
+   Cards
+========================================== */
+
+.edit-profile-card {
+    background: #ffffff;
+    border: 1px solid #e8eaf0;
+    border-radius: 18px;
+
+    padding: 34px;
+    margin-bottom: 24px;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+
+/* ==========================================
+   Card Title
+========================================== */
+
+.edit-card-title {
+    display: flex;
+    justify-content: space-between;
+
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.edit-card-title h2 {
+    margin: 0 0 5px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.edit-card-title p {
+    margin: 0;
+    color: #888888;
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   Form Grid
+========================================== */
+
+.edit-information-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+
+/* ==========================================
+   Form Group
+========================================== */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444444;
+
+    margin-bottom: 8px;
+}
+
+
+/* ==========================================
+   Inputs
+========================================== */
+
+.form-control {
+    width: 100%;
+    height: 48px;
+
+    padding: 0 16px;
+
+    border: 1px solid #dfe2e8;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #333333;
+    font-size: 15px;
+
+    outline: none;
+
+    transition: border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+textarea.form-control {
+    height: auto;
+    padding-top: 12px;
+}
+
+.form-control:focus {
+    border-color: #888888;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+}
+
+.form-control::placeholder {
+    color: #aaaaaa;
+}
+
+
+/* ==========================================
+   Validation
+========================================== */
+
+.validation-message {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+
+/* ==========================================
+   Account Information
+========================================== */
+
+.account-information-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.account-information-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.account-information-label {
+    color: #888888;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.account-information-value {
+    color: #333333;
+    font-size: 15px;
+}
+
+
+/* ==========================================
+   Status Badge
+========================================== */
+
+.status-badge {
+    display: inline-flex;
+    width: fit-content;
+
+    padding: 6px 12px;
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-badge.active {
+    background: #e8f7ed;
+    color: #238b45;
+}
+
+.status-badge.inactive {
+    background: #fceaea;
+    color: #c43d3d;
+}
+
+
+/* ==========================================
+   Buttons
+========================================== */
+
+.edit-profile-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+    margin-top: 10px;
+}
+
+
+.btn-cancel,
+.btn-save-profile {
+    min-width: 140px;
+    height: 48px;
+
+    padding: 0 24px;
+
+    border-radius: 9px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.btn-cancel {
+    background: #ffffff;
+    color: #555555;
+    border: 1px solid #dfe2e8;
+}
+
+.btn-cancel:hover {
+    background: #f5f5f5;
+}
+
+
+.btn-save-profile {
+    background: #222222;
+    color: #ffffff;
+    border: 1px solid #222222;
+}
+
+.btn-save-profile:hover {
+    background: #000000;
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 1200px) {
+
+    .edit-information-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .account-information-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .edit-profile-page {
+        margin-top: 20px;
+        padding: 0 12px 40px;
+    }
+
+    .edit-profile-header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .edit-profile-card {
+        padding: 20px;
+    }
+
+    .edit-information-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group-full {
+        grid-column: auto;
+    }
+
+    .account-information-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .edit-profile-actions {
+        flex-direction: column-reverse;
+    }
+
+    .btn-cancel,
+    .btn-save-profile {
+        width: 100%;
+    }
+}

@@ -1,0 +1,86 @@
+@model GenderResponseViewModel
+
+@{
+    ViewData["Title"] = "Gender Details";
+}
+
+<div class="container mt-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>Gender Details</h2>
+
+        <div>
+
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                Edit
+            </a>
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Back to List
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Details Card -->
+    <div class="card">
+
+        <div class="card-header">
+
+            <h5 class="mb-0">
+                @Model.GenderName
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <!-- Gender Name -->
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Gender Name
+                </div>
+
+                <div class="col-md-9">
+                    @Model.GenderName
+                </div>
+
+            </div>
+
+            <!-- Description -->
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Description
+                </div>
+
+                <div class="col-md-9">
+                    @(string.IsNullOrWhiteSpace(Model.Description)
+                        ? "-"
+                        : Model.Description)
+                </div>
+
+            </div>
+
+            <!-- Created Date -->
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Created Date
+                </div>
+
+                <div class="col-md-9">
+                    @Model.CreatedDate.ToDateTimeString()
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

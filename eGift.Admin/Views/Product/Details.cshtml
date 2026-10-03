@@ -1,0 +1,428 @@
+@model ProductResponseViewModel
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>Product Details</h2>
+
+        <div>
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.Id"
+               class="btn btn-warning">
+                Edit
+            </a>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Back to List
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h5 class="mb-0">
+                @Model.Name
+            </h5>
+
+        </div>
+
+
+        <div class="card-body">
+
+            <!-- Product Name -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Product Name
+                </div>
+
+                <div class="col-md-9">
+                    @Model.Name
+                </div>
+
+            </div>
+
+
+            <!-- Category -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Category
+                </div>
+
+                <div class="col-md-9">
+                    @Model.CategoryName
+                </div>
+
+            </div>
+
+
+            <!-- Sub Category -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Sub Category
+                </div>
+
+                <div class="col-md-9">
+                    @Model.SubCategoryName
+                </div>
+
+            </div>
+
+
+            <!-- Quantity Per Unit -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Quantity Per Unit
+                </div>
+
+                <div class="col-md-9">
+                    @Model.QuantityPerUnit
+                </div>
+
+            </div>
+
+
+            <!-- Unit Price -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Unit Price
+                </div>
+
+                <div class="col-md-9">
+                    @Model.UnitPrice.ToString("0.00")
+                </div>
+
+            </div>
+
+
+            <!-- Size -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Size
+                </div>
+
+                <div class="col-md-9">
+                    @(Model.SizeName ?? "-")
+                </div>
+
+            </div>
+
+
+            <!-- Discount -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Discount
+                </div>
+
+                <div class="col-md-9">
+                    @(Model.Discount.HasValue
+                        ? Model.Discount.Value.ToString("0.00")
+                        : "-")
+                </div>
+
+            </div>
+
+
+            <!-- Unit In Stock -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Unit In Stock
+                </div>
+
+                <div class="col-md-9">
+                    @Model.UnitInStock
+                </div>
+
+            </div>
+
+
+            <!-- Unit In Order -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Unit In Order
+                </div>
+
+                <div class="col-md-9">
+                    @Model.UnitInOrder
+                </div>
+
+            </div>
+
+
+            <!-- Product Available -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Product Available
+                </div>
+
+                <div class="col-md-9">
+
+                    @if (Model.ProductAvailable > 0)
+                    {
+                        <span class="badge bg-success">
+                            Available
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">
+                            Not Available
+                        </span>
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- Short Description -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Short Description
+                </div>
+
+                <div class="col-md-9">
+                    @(Model.ShortDescription ?? "-")
+                </div>
+
+            </div>
+
+
+            <!-- Long Description -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Long Description
+                </div>
+
+                <div class="col-md-9">
+                    @(Model.LongDescription ?? "-")
+                </div>
+
+            </div>
+
+            <!-- Product Images -->
+
+            <div class="row mb-4">
+
+                <div class="col-md-3 fw-bold">
+                    Product Images
+                </div>
+
+                <div class="col-md-9">
+
+                    <div class="row g-3">
+
+                        <!-- Main Product Image -->
+
+                        @if (!string.IsNullOrWhiteSpace(Model.ProductImagePath))
+                        {
+                            <div class="col-md-4">
+
+                                <div class="card h-100">
+
+                                    <div class="card-header">
+                                        <strong>Main Product Image</strong>
+                                    </div>
+
+                                    <div class="card-body text-center">
+
+                                        <img src="@Url.Action(
+                                                                             "Image",
+                                                                             "Product",
+                                                                             new
+                                                                             {
+                                                                                                                              fileName = System.IO.Path.GetFileName(Model.ProductImagePath)
+                                                                             })" alt="@Model.Name" class="img-fluid rounded"
+                                             style="width:200px;height:200px;object-fit:cover;" />
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        }
+
+
+                        <!-- Picture 1 -->
+
+                        @if (!string.IsNullOrWhiteSpace(Model.PicturePath1))
+                        {
+                            <div class="col-md-4">
+
+                                <div class="card h-100">
+
+                                    <div class="card-header">
+                                        <strong>Picture 1</strong>
+                                    </div>
+
+                                    <div class="card-body text-center">
+
+                                        <img src="@Url.Action(
+                                                                             "Image",
+                                                                             "Product",
+                                                                             new
+                                                                             {
+                                                                                                                              fileName = System.IO.Path.GetFileName(Model.PicturePath1)
+                                                                             })" alt="@Model.Name" class="img-fluid rounded"
+                                             style="width:200px;height:200px;object-fit:cover;" />
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        }
+
+
+                        <!-- Picture 2 -->
+
+                        @if (!string.IsNullOrWhiteSpace(Model.PicturePath2))
+                        {
+                            <div class="col-md-4">
+
+                                <div class="card h-100">
+
+                                    <div class="card-header">
+                                        <strong>Picture 2</strong>
+                                    </div>
+
+                                    <div class="card-body text-center">
+
+                                        <img src="@Url.Action(
+                                                                             "Image",
+                                                                             "Product",
+                                                                             new
+                                                                             {
+                                                                                                                              fileName = System.IO.Path.GetFileName(Model.PicturePath2)
+                                                                             })" alt="@Model.Name" class="img-fluid rounded"
+                                             style="width:200px;height:200px;object-fit:cover;" />
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        }
+
+
+                        <!-- Picture 3 -->
+
+                        @if (!string.IsNullOrWhiteSpace(Model.PicturePath3))
+                        {
+                            <div class="col-md-4">
+
+                                <div class="card h-100">
+
+                                    <div class="card-header">
+                                        <strong>Picture 3</strong>
+                                    </div>
+
+                                    <div class="card-body text-center">
+
+                                        <img src="@Url.Action(
+                                                                             "Image",
+                                                                             "Product",
+                                                                             new
+                                                                             {
+                                                                                                                              fileName = System.IO.Path.GetFileName(Model.PicturePath3)
+                                                                             })" alt="@Model.Name" class="img-fluid rounded"
+                                             style="width:200px;height:200px;object-fit:cover;" />
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        }
+
+
+                        <!-- Picture 4 -->
+
+                        @if (!string.IsNullOrWhiteSpace(Model.PicturePath4))
+                        {
+                            <div class="col-md-4">
+
+                                <div class="card h-100">
+
+                                    <div class="card-header">
+                                        <strong>Picture 4</strong>
+                                    </div>
+
+                                    <div class="card-body text-center">
+
+                                        <img src="@Url.Action(
+                                                                             "Image",
+                                                                             "Product",
+                                                                             new
+                                                                             {
+                                                                                                                              fileName = System.IO.Path.GetFileName(Model.PicturePath4)
+                                                                             })" alt="@Model.Name" class="img-fluid rounded"
+                                             style="width:200px;height:200px;object-fit:cover;" />
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Created Date -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Created Date
+                </div>
+
+                <div class="col-md-9">
+                    @Model.CreatedDate.ToDateString()
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

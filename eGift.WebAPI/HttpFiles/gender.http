@@ -1,0 +1,43 @@
+@eGift_HostGender = http://localhost:5270
+@APIKey = n62p2wjy26ro0qy54n8o7kbiwho4nm9g
+
+###
+
+GET {{eGift_HostGender}}/api/gender
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+GET {{eGift_HostGender}}/api/gender/1
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+POST {{eGift_HostGender}}/api/gender
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "genderName": "Female",
+  "description": "Female gender"
+}
+
+###
+
+PUT {{eGift_HostGender}}/api/gender/1
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 1,
+  "genderName": "Updated Male",
+  "description": "Updated gender description"
+}
+
+###
+
+DELETE {{eGift_HostGender}}/api/gender/1?loginUserId=1&deletedDate=2026-08-11
+Accept: application/json
+X-API-Key: {{APIKey}}

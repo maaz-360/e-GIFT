@@ -1,0 +1,52 @@
+@eGift_HostMyCart = http://localhost:5270
+@APIKey = n62p2wjy26ro0qy54n8o7kbiwho4nm9g
+
+###
+GET {{eGift_HostMyCart}}/api/mycart
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+GET {{eGift_HostMyCart}}/api/mycart/3
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+POST {{eGift_HostMyCart}}/api/mycart
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 0,
+  "productId": 1,
+  "customerId": 1,
+  "quantity": 2,
+  "isDeleted": false,
+  "createdBy": 1,
+  "createdDate": "2026-08-28T00:00:00"
+}
+
+###
+PUT {{eGift_HostMyCart}}/api/mycart/2
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 1,
+  "productId": 11,
+  "customerId": 2,
+  "quantity": 30,
+  "isDeleted": false,
+  "updatedBy": 1,
+  "updatedDate": "2026-08-28T00:00:00"
+}
+
+###
+DELETE {{eGift_HostMyCart}}/api/mycart/1?loginUserId=1&deletedDate=2026-08-28
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+GET {{eGift_HostMyCart}}/api/mycart/customer/1
+Accept: application/json
+X-API-Key: {{APIKey}}

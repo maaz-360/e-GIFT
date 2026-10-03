@@ -1,0 +1,50 @@
+@eGift_HostRole = http://localhost:5270
+@APIKey = n62p2wjy26ro0qy54n8o7kbiwho4nm9g
+
+###
+
+GET {{eGift_HostRole}}/api/role
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+GET {{eGift_HostRole}}/api/role/1
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+POST {{eGift_HostRole}}/api/role
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 0,
+  "roleName": "Admin",
+  "description": "Administrator role",
+  "isDeleted": false,
+  "createdBy": 1,
+  "createdDate": "2026-08-11T00:00:00"
+}
+
+###
+
+PUT {{eGift_HostRole}}/api/role/1
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 1,
+  "roleName": "Updated Admin",
+  "description": "Updated administrator role",
+  "isDeleted": false,
+  "updatedBy": 1,
+  "updatedDate": "2026-08-11T00:00:00"
+}
+
+###
+
+DELETE {{eGift_HostRole}}/api/role/1?loginUserId=1&deletedDate=2026-08-11
+Accept: application/json
+X-API-Key: {{APIKey}}

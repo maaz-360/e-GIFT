@@ -1,0 +1,223 @@
+@model EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Create Employee";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Create Employee</h2>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Back to List
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Employee Information</h5>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3">
+                </div>
+
+                <div class="row">
+
+                    <!-- First Name -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="FirstName" class="form-label">
+                        </label>
+
+                        <input asp-for="FirstName" class="form-control" placeholder="Enter first name" />
+
+                        <span asp-validation-for="FirstName" class="text-danger">
+                        </span>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="LastName" class="form-label">
+                        </label>
+
+                        <input asp-for="LastName" class="form-control" placeholder="Enter last name" />
+
+                        <span asp-validation-for="LastName" class="text-danger">
+                        </span>
+                    </div>
+
+                    <!-- User Name -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="UserName" class="form-label">
+                        </label>
+
+                        <input asp-for="UserName" class="form-control" placeholder="Enter user name" />
+
+                        <span asp-validation-for="UserName" class="text-danger">
+                        </span>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Password" class="form-label">
+                        </label>
+
+                        <input asp-for="Password" class="form-control" placeholder="Enter password" />
+
+                        <span asp-validation-for="Password" class="text-danger">
+                        </span>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="ConfirmPassword" class="form-label">
+                        </label>
+
+                        <input asp-for="ConfirmPassword" class="form-control" placeholder="Enter confirm password" />
+
+                        <span asp-validation-for="ConfirmPassword" class="text-danger">
+                        </span>
+                    </div>
+
+                    <!-- Date of Birth -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="DateofBirth" class="form-label">
+                            Date of Birth
+                        </label>
+
+                        <input asp-for="DateofBirth" type="date" class="form-control" />
+
+                        <span asp-validation-for="DateofBirth" class="text-danger">
+                        </span>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="GenderId" class="form-label">
+                            Gender
+                        </label>                        
+
+                        <select asp-for="GenderId" asp-items="Model.Genders" class="form-select">
+
+                            <option value="">-- Select Gender --</option>
+
+                        </select>
+
+                        <span asp-validation-for="GenderId" class="text-danger">
+                        </span>
+                    </div>
+
+                    <!-- Mobile -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Mobile" class="form-label">
+                        </label>
+
+                        <input asp-for="Mobile" class="form-control" placeholder="Enter mobile number" />
+
+                        <span asp-validation-for="Mobile" class="text-danger">
+                        </span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Email" class="form-label">
+                        </label>
+
+                        <input asp-for="Email" type="email" class="form-control" placeholder="Enter email" />
+
+                        <span asp-validation-for="Email" class="text-danger">
+                        </span>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="AddressId" class="form-label">
+                            Address
+                        </label>
+
+                        <select asp-for="AddressId" asp-items="Model.Addresses" class="form-select">
+
+                            <option value="">-- Select Address --</option>
+
+                        </select>
+
+                        <span asp-validation-for="AddressId" class="text-danger">
+                        </span>
+                    </div>
+
+                    <!-- Role -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="RoleId" class="form-label">
+                            Role
+                        </label>                        
+
+                        <select asp-for="RoleId" asp-items="Model.Roles" class="form-select">
+
+                            <option value="">-- Select Role --</option>
+
+                        </select>
+
+                        <span asp-validation-for="RoleId" class="text-danger">
+                        </span>
+                    </div>
+
+                    <!-- Active -->
+                    <div class="col-md-6 mb-3">
+
+                        <div class="form-check mt-4">
+
+                            <input asp-for="IsActive" class="form-check-input" />
+
+                            <label asp-for="IsActive" class="form-check-label">
+                                Active
+                            </label>
+
+                        </div>
+
+                    </div>                   
+
+                    <!-- Profile Image -->
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Profile Image
+                        </label>
+
+                        <input type="file" name="ProfileImage" class="form-control" accept="image/*" />
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <div class="d-flex justify-content-end gap-2">
+
+                    <a asp-action="Index" class="btn btn-secondary">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="btn btn-primary">
+                        Create Employee
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

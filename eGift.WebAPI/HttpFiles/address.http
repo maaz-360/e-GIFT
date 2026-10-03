@@ -1,0 +1,46 @@
+@eGift_HostAddress = http://localhost:5270
+@APIKey = n62p2wjy26ro0qy54n8o7kbiwho4nm9g
+
+###
+GET {{eGift_HostAddress}}/api/address
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+GET {{eGift_HostAddress}}/api/address/1
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+POST {{eGift_HostAddress}}/api/address
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "street1": "Mountview Ave",
+  "street2": "Apt 45A",
+  "cityId": 1,
+  "stateId": 1,
+  "countryId": 1,
+  "pincode": "123456"
+}
+
+###
+PUT {{eGift_HostAddress}}/api/address/6
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 1,
+  "street1": "456 Elm St",
+  "street2": "Suite 5C",
+  "cityId": 2,
+  "stateId": 2,
+  "countryId": 2,
+  "pincode": "654321"
+}
+
+###
+DELETE {{eGift_HostAddress}}/api/address/2?loginUserId=1&deletedDate=2026-08-11
+Accept: application/json
+X-API-Key: {{APIKey}}

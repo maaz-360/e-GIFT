@@ -1,0 +1,263 @@
+@model eGift.Store.Models.ViewModels.CustomerViewModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+
+    var profileImage = !string.IsNullOrWhiteSpace(Model.ProfileImagePath)
+        ? Url.Action(
+            "Image",
+            "Customer",
+            new
+            {
+                fileName = System.IO.Path.GetFileName(Model.ProfileImagePath)
+            })
+        : null;
+}
+
+<link rel="stylesheet" href="~/css/editprofile.css" asp-append-version="true" />
+
+<div class="edit-profile-page">
+    <!--Edit Profile Form-->
+    <form asp-controller="Customer" asp-action="EditProfile" method="post" enctype="multipart/form-data"
+          class="edit-profile-form">
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="RoleId" />
+        <input type="hidden" asp-for="IsActive" />
+        <input type="hidden" asp-for="IsDefault" />
+        <input type="hidden" asp-for="AddressId" />
+        <input type="hidden" asp-for="ProfileImagePath" />
+
+        <div asp-validation-summary="ModelOnly" class="validation-message mb-3"></div>
+        <!-- Profile Header-->
+        <div class="edit-profile-header">
+            <div class="edit-profile-header-content">
+                <div class="edit-profile-image-section">
+                    <div class="edit-profile-image-wrapper">
+                        @if (!string.IsNullOrWhiteSpace(profileImage))
+                        {
+                            <img src="@profileImage" alt="Profile Image" class="edit-profile-image" id="profilePreview" />
+                        }
+                        else
+                        {
+                            <div class="edit-profile-placeholder" id="profilePlaceholder">
+                                <span>
+                                    @Model.FirstName.FirstOrDefault()
+                                    @Model.LastName.FirstOrDefault()
+                                </span>
+                            </div>
+
+                            <img id="profilePreview" class="edit-profile-image" style="display:none;"
+                                 alt="Profile Preview" />
+                        }
+
+                        <label for="profileImage" class="change-photo-button">
+                            <span>📷</span>Change Photo</label>
+
+                            <input type="file" id="profileImage" name="ProfileImage" accept="image/*" hidden />
+                        </div>
+                    </div>
+
+                    <div class="edit-profile-header-info">
+                        <h1>Edit Profile</h1>
+                        <p>Update your personal information and profile details</p>
+                    </div>
+                </div>
+            </div>
+
+
+   
+
+            <!-- Personal Information-->
+            <div class="edit-profile-card">
+                <div class="edit-card-title">
+                    <div>
+                        <h2>Personal Information</h2>
+                        <p>Update your personal details</p>
+                    </div>
+                </div>
+
+
+                <div class="edit-information-grid">
+
+                    <!-- First Name -->
+                    <div class="form-group">
+                        <label asp-for="FirstName">First Name</label>
+                        <input asp-for="FirstName" class="form-control" placeholder="Enter first name"
+                               autocomplete="given-name" />
+
+                        <span asp-validation-for="FirstName" class="validation-message"></span>
+
+                    </div>
+
+
+                    <!-- Last Name -->
+                    <div class="form-group">
+                        <label asp-for="LastName">Last Name</label>
+                        <input asp-for="LastName" class="form-control" placeholder="Enter last name"
+                               autocomplete="family-name" />
+
+                        <span asp-validation-for="LastName" class="validation-message"></span>
+                    </div>
+
+
+                    <!-- Date of Birth -->
+                    <div class="form-group">
+                        <label asp-for="DateofBirth">Date of Birth</label>
+
+                        <input asp-for="DateofBirth" type="date" class="form-control" />
+                        <span asp-validation-for="DateofBirth" class="validation-message"></span>
+                    </div>
+
+
+                    <!-- Gender -->
+                    <div class="form-group">
+                        <label asp-for="GenderId">Gender</label>
+                        <select asp-for="GenderId" class="form-control" asp-items="Model.Genders">
+
+                            <option value="">Select Gender</option>
+                        </select>
+                        <span asp-validation-for="GenderId" class="validation-message">
+                        </span>
+                    </div>
+
+
+                    <!-- Mobile -->
+                    <div class="form-group">
+                        <label asp-for="Mobile">Mobile</label>
+                        <input asp-for="Mobile" class="form-control" placeholder="Enter mobile number" autocomplete="tel" />
+
+                        <span asp-validation-for="Mobile" class="validation-message">
+                        </span>
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label asp-for="Email">Email</label>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="Enter email address"
+                               autocomplete="email" />
+
+                        <span asp-validation-for="Email" class="validation-message"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Address-->
+            <div class="edit-profile-card">
+                <div class="edit-card-title">
+                    <div>
+                        <h2>Address</h2>
+                        <p>Update your saved address</p>
+                    </div>
+                </div>
+
+                <div class="edit-information-grid">
+
+
+                    <!-- Country -->
+                    <div class="form-group">
+                        <label asp-for="CountryId">Country</label>
+
+                        <select asp-for="CountryId" asp-items="Model.Countries" class="form-control" id="CountryId">
+                            <option value="">Select Country</option>
+                        </select>
+                        <span asp-validation-for="CountryId" class="validation-message">
+                        </span>
+                    </div>
+
+                    <!-- State -->
+                    <div class="form-group">
+                        <label asp-for="StateId">State</label>
+                        <select asp-for="StateId" asp-items="Model.States" class="form-control" id="StateId">
+                            <option value="">Select State</option>
+                        </select>
+                        <span asp-validation-for="StateId" class="validation-message">
+                        </span>
+                    </div>
+
+                    <!-- City -->
+                    <div class="form-group">
+                        <label asp-for="CityId">City</label>
+                        <select asp-for="CityId" asp-items="Model.Cities" class="form-control" id="CityId">
+                            <option value="">Select City</option>
+                        </select>
+                        <span asp-validation-for="CityId" class="validation-message"></span>
+                    </div>
+
+
+                    <!-- Pin Code -->
+                    <div class="form-group">
+                        <label asp-for="PinCode">Pin Code</label>
+                        <input asp-for="PinCode" class="form-control" placeholder="Enter pin code" maxlength="50" />
+                        <span asp-validation-for="PinCode" class="validation-message"></span>
+                    </div>
+
+                    <!-- Street 1 -->
+                    <div class="form-group form-group-full">
+                        <label asp-for="Street1">Street 1</label>
+                        <input asp-for="Street1" class="form-control" placeholder="House / Flat No, Street name" />
+                        <span asp-validation-for="Street1" class="validation-message">
+                        </span>
+                    </div>
+
+
+                    <!-- Street 2 -->
+                    <div class="form-group form-group-full">
+                        <label asp-for="Street2">Street 2</label>
+                        <input asp-for="Street2" class="form-control" placeholder="Area / Landmark (optional)" />
+                        <span asp-validation-for="Street2" class="validation-message">
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Account Information-->
+            <div class="edit-profile-card">
+                <div class="edit-card-title">
+                    <div>
+                        <h2>Account Information</h2>
+                        <p>This information cannot be changed here</p>
+                    </div>
+                </div>
+
+                <div class="account-information-grid">
+                    <div class="account-information-item">
+                        <span class="account-information-label">Account Status</span>
+                        <span class="status-badge @(Model.IsActive ? "active" : "inactive")">
+                            @(Model.IsActive ? "Active" : "Inactive")
+                        </span>
+                    </div>
+
+
+                    <div class="account-information-item">
+                        <span class="account-information-label">Member Since</span>
+                        <span class="account-information-value">@Model.CreatedDate.ToString("dd MMMM yyyy")
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Form Actions-->
+            <div class="edit-profile-actions">
+
+                <a asp-controller="Customer" asp-action="MyProfile" class="btn-cancel">
+                    Cancel
+                </a>
+                <button type="submit" class="btn-save-profile">Save Changes</button>
+            </div>
+        </form>
+    </div>
+
+
+    @section Scripts
+    {
+        <partial name="_ValidationScriptsPartial" />
+
+        <script src="~/js/customer-address.js" asp-append-version="true"></script>
+    }

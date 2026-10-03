@@ -1,5 +1,7 @@
 html {
   font-size: 14px;
+  position: relative;
+  min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -8,24 +10,67 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
+  margin: 0;
   margin-bottom: 60px;
+  min-height: 100vh;
+
+  background: linear-gradient(135deg,
+      #a8edea 0%,
+      #fed6e3 25%,
+      #d299c2 50%,
+      #fef9d7 75%,
+      #a8edea 100%);
+
+  background-attachment: fixed;
+  background-size: cover;
+
+  color: #212529;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow:
+    0 0 0 0.1rem white,
+    0 0 0 0.25rem #258cfb;
+}
+
+.form-floating>.form-control-plaintext::placeholder,
+.form-floating>.form-control::placeholder {
   color: var(--bs-secondary-color);
   text-align: end;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+.form-floating>.form-control-plaintext:focus::placeholder,
+.form-floating>.form-control:focus::placeholder {
   text-align: start;
+}
+
+main {
+  background: transparent;
+}
+
+
+.container,
+.container-fluid {
+  background: transparent;
+}
+
+
+.navbar {
+  background-color: #ffffff !important;
+}
+
+
+.card {
+  background-color: #ffffff;
+}
+
+
+footer {
+  background-color: #ffffff;
 }

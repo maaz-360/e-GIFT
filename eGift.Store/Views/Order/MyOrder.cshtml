@@ -1,0 +1,145 @@
+@model eGift.Store.Models.ListViewModels.OrderListViewModel
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<div class="container-fluid py-4">
+    <!-- PAGE HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">
+                <i class="bi bi-box-seam me-2"></i>My Orders</h3>
+            <p class="text-muted mb-0">View your order history</p>
+        </div>
+    </div>
+
+    @if (Model?.OrderList == null || !Model.OrderList.Any())
+    {
+        <!-- EMPTY ORDERS -->
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center py-5">
+                <div class="mb-3"><i class="bi bi-box-seam fs-1 text-muted"></i></div>
+                <h5 class="fw-bold">No orders found</h5>
+                <p class="text-muted mb-4">You haven't placed any orders yet.</p>
+
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary rounded-pill px-4">
+                    <i class="bi bi-shop me-2"></i>Continue Shopping
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- ORDERS -->
+        <div class="card shadow-sm border-0">
+            <!-- HEADER -->
+            <div class="card-header bg-white py-3">
+                <h5 class="fw-bold mb-0"><i class="bi bi-receipt me-2"></i>Your Orders</h5>
+            </div>
+
+            <!-- ORDER TABLE -->
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">Order #</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var order in Model.OrderList)
+                        {
+                            <tr>
+                                <!-- ORDER NUMBER -->
+                                <td class="ps-4">
+                                    <span class="fw-semibold">@order.OrderNumber</span>
+                                </td>
+
+                                <!-- DATE -->
+                                <td>
+                                    @order.CreatedDate.ToString("dd-MMM-yyyy")
+                                </td>
+
+                                <!-- AMOUNT -->
+                                <td>
+                                    <span class="fw-semibold">
+                                        ₹@order.TotalAmount.ToString("N2")
+                                    </span>
+                                </td>
+
+                                <!-- STATUS -->
+                                <td>
+                                    @if (order.StatusId == (int)OrderStatus.New)
+                                    {
+                                        <span class="badge bg-primary">
+                                            @order.StatusName
+                                        </span>
+                                    }
+                                    else if (order.StatusId == (int)OrderStatus.Dispatched)
+                                    {
+                                        <span class="badge bg-info text-dark">
+                                            @order.StatusName
+                                        </span>
+                                    }
+                                    else if (order.StatusId == (int)OrderStatus.Shipped)
+                                    {
+                                        <span class="badge bg-warning text-dark">
+                                            @order.StatusName
+                                        </span>
+                                    }
+                                    else if (order.StatusId == (int)OrderStatus.Delivered)
+                                    {
+                                        <span class="badge bg-success">
+                                            @order.StatusName
+                                        </span>
+                                    }
+                                    else if (order.StatusId == (int)OrderStatus.Cancelled)
+                                    {
+                                        <span class="badge bg-danger">
+                                            @order.StatusName
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            @order.StatusName
+                                        </span>
+                                    }
+
+                                </td>
+
+                                <!-- ACTION -->
+                                <td class="text-center">
+                                    @if (order.StatusId == (int)OrderStatus.New)
+                                    {
+                                        <button type="button" class="btn btn-outline-danger btn-sm rounded-pill cancel-order"
+                                                data-order-id="@order.Id" data-order-number="@order.OrderNumber">
+                                            <i class="bi bi-x-circle me-1"></i>
+                                            Cancel Order
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">—</span>
+                                    }
+                                </td>
+                            </tr>
+                            }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        }
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/order.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,44 @@
+@eGift_HostCountry = http://localhost:5270
+@APIKey = n62p2wjy26ro0qy54n8o7kbiwho4nm9g
+@countryId = 1
+
+###
+GET {{eGift_HostCountry}}/api/country
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+
+###
+GET {{eGift_HostCountry}}/api/country/{{countryId}}
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+
+### 
+POST {{eGift_HostCountry}}/api/country
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "countryCode": "IN",
+  "countryName": "India",
+  "description": "Republic of India"
+}
+
+
+###
+PUT {{eGift_HostCountry}}/api/country/{{countryId}}
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "countryCode": "IN",
+  "countryName": "Updated India",
+  "description": "Updated country description"
+}
+
+
+### 
+DELETE {{eGift_HostCountry}}/api/country/2?loginUserId=1&deletedDate=2026-08-11
+Accept: application/json
+X-API-Key: {{APIKey}}

@@ -1,0 +1,90 @@
+@eGift_HostProduct = http://localhost:5270
+@APIKey = n62p2wjy26ro0qy54n8o7kbiwho4nm9g
+
+###
+
+GET {{eGift_HostProduct}}/api/product
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+GET {{eGift_HostProduct}}/api/product/1
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+POST {{eGift_HostProduct}}/api/product
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 0,
+  "name": "Wireless Headphones",
+  "categoryId": 1,
+  "subCategoryId": 1,
+  "quantityPerUnit": 1,
+  "unitPrice": 2500.00,
+  "sizeId": null,
+  "discount": 200.00,
+  "unitInStock": 50,
+  "unitInOrder": 0,
+  "productAvailable": 50,
+  "shortDescription": "Wireless Bluetooth headphones",
+  "longDescription": "High quality wireless Bluetooth headphones with noise cancellation.",
+  "picturePath1": null,
+  "picturePath2": null,
+  "picturePath3": null,
+  "picturePath4": null,
+  "pictureData1": "",
+  "pictureData2": "",
+  "pictureData3": "",
+  "pictureData4": "",
+  "productImagePath": "",
+  "productImageData": "",
+  "isDeleted": false,
+  "createdBy": 1,
+  "createdDate": "2026-08-11T00:00:00"
+}
+
+###
+
+PUT {{eGift_HostProduct}}/api/product/1
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 1,
+  "name": "Updated Wireless Headphones",
+  "categoryId": 1,
+  "subCategoryId": 1,
+  "quantityPerUnit": 1,
+  "unitPrice": 2800.00,
+  "sizeId": null,
+  "discount": 250.00,
+  "unitInStock": 45,
+  "unitInOrder": 5,
+  "productAvailable": 40,
+  "shortDescription": "Updated wireless headphones",
+  "longDescription": "Updated description for wireless Bluetooth headphones.",
+   "picturePath1": null,
+  "picturePath2": null,
+  "picturePath3": null,
+  "picturePath4": null,
+  "pictureData1": "",
+  "pictureData2": "",
+  "pictureData3": "",
+  "pictureData4": "",
+  "productImagePath": "",
+  "productImageData": "",
+  "isDeleted": false,
+  "updatedBy": 1,
+  "updatedDate": "2026-08-11T00:00:00"
+}
+
+###
+
+DELETE {{eGift_HostProduct}}/api/product/1?loginUserId=1&deletedDate=2026-08-11
+Accept: application/json
+X-API-Key: {{APIKey}}

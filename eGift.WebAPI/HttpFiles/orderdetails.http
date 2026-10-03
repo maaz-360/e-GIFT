@@ -1,0 +1,58 @@
+@eGift_HostOrderDetails = http://localhost:5270
+@APIKey = n62p2wjy26ro0qy54n8o7kbiwho4nm9g
+
+###
+
+GET {{eGift_HostOrderDetails}}/api/orderdetails
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+GET {{eGift_HostOrderDetails}}/api/orderdetails/1
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+POST {{eGift_HostOrderDetails}}/api/orderdetails
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "orderId": 1,
+  "productId": 1,
+  "unitPrice": 2500.00,
+  "quantity": 2,
+  "discount": 100.00,
+  "tax": 270.00,
+  "netAmount": 2670.00,
+  "isDeleted": false,
+  "createdBy": 1,
+  "createdDate": "2026-08-12T00:00:00"
+}
+
+###
+
+PUT {{eGift_HostOrderDetails}}/api/orderdetails/1
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "orderId": 1,
+  "productId": 1,
+  "unitPrice": 2800.00,
+  "quantity": 2,
+  "discount": 150.00,
+  "tax": 300.00,
+  "netAmount": 2750.00,
+  "isDeleted": false,
+  "updatedBy": 1,
+  "updatedDate": "2026-08-12T00:00:00"
+}
+
+###
+
+DELETE {{eGift_HostOrderDetails}}/api/orderdetails/1?loginUserId=1&deletedDate=2026-08-12
+Accept: application/json
+X-API-Key: {{APIKey}}

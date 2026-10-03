@@ -1,0 +1,41 @@
+@eGift_HostCity = http://localhost:5270
+@APIKey = n62p2wjy26ro0qy54n8o7kbiwho4nm9g
+
+###
+GET {{eGift_HostCity}}/api/city
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+GET {{eGift_HostCity}}/api/city/3
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+POST {{eGift_HostCity}}/api/city
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "cityCode": "NGP",
+  "cityName": "Nagpur",
+  "stateId": 1,
+  "description": "City in Maharashtra"
+}
+
+###
+PUT {{eGift_HostCity}}/api/city/3
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "cityCode": "NGP",
+  "cityName": "Updated Nagpur",
+  "stateId": 1,
+  "description": "Updated city description"
+}
+
+### 
+DELETE {{eGift_HostCity}}/api/city/1?loginUserId=1&deletedDate=2026-08-11
+Accept: application/json
+X-API-Key: {{APIKey}}

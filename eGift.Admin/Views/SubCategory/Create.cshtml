@@ -1,0 +1,114 @@
+@model SubCategoryViewModel
+
+@{
+    ViewData["Title"] = "Create Sub-Category";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>Create Sub-Category</h2>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Back to List
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-header">
+            <h5 class="mb-0">Sub-Category Information</h5>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Create" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3">
+                </div>
+
+                <div class="row">
+
+                    <!-- Category -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="CategoryId" class="form-label">
+                        </label>
+
+                        <select asp-for="CategoryId" asp-items="Model.Categories" class="form-select">
+
+                            <option value="">
+                                -- Select Category --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="CategoryId" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Sub-Category Name -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="SubCategoryName" class="form-label">
+                        </label>
+
+                        <input asp-for="SubCategoryName" class="form-control" placeholder="Enter sub-category name" />
+
+                        <span asp-validation-for="SubCategoryName" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Description -->
+                    <div class="col-12 mb-3">
+
+                        <label asp-for="Description" class="form-label">
+                        </label>
+
+                        <textarea asp-for="Description" class="form-control" rows="4"
+                                  placeholder="Enter sub-category description"></textarea>
+
+                        <span asp-validation-for="Description" class="text-danger">
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <div class="d-flex justify-content-end gap-2">
+
+                    <a asp-action="Index" class="btn btn-secondary">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="btn btn-primary">
+                        Create Sub-Category
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

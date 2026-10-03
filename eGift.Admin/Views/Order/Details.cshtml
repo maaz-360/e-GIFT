@@ -1,0 +1,201 @@
+@model OrderResponseViewModel
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+   
+
+<div class="container mt-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Order Details</h2>
+    </div>
+
+  <div class="text-end mb-3">
+         <a asp-action="Index" class="btn btn-secondary">
+            Back to List
+        </a>
+    </div>
+
+    <!-- Details Card -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">
+                @Model.CustomerName
+            </h5>
+        </div>
+
+        <div class="card-body">
+             <input type="hidden" id="OrderId" value="@Model.Id" />
+            <div class="row">
+                <!-- Customer Name -->
+                <div class="col-md-6 mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Customer Name:
+                        </div>
+
+                        <div class="col-md-6">
+                            @Model.CustomerName
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Number -->
+                <div class="col-md-6 mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Order Name:
+                        </div>
+
+                        <div class="col-md-6">
+                            @Model.OrderNumber
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="col-md-6 mb-3">
+                    <label asp-for="StatusId" class="form-label">
+                        Status:
+                    </label>
+
+                    <select asp-for="StatusId" asp-items="Model.Statuses" class="form-select" id="StatusId">
+                        <option value="">-- Select Status --</option>
+                    </select>
+
+                    <span asp-validation-for="StatusId" class="text-danger"></span>
+                </div>
+
+                <!-- Notes -->
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Notes" class="form-label">
+                        Notes:
+                    </label>
+
+                    <textarea asp-for="Notes" class="form-control" rows="4" placeholder="Enter Notes"></textarea>
+
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+
+                <!-- Update Status Button -->
+                    <button type="button" class="btn btn-primary" id="btnUpdateStatus">
+                        Update Status
+                    </button>
+            </div>
+
+        </div>
+
+        <div class="table-responsive egift-table-scroll">
+            <table class="table egift-table mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4" style="width:50px;">#</th>
+                        <th>Product Name</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Discount</th>
+                        <th>Tax</th>
+                        <th>Net Amount</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @{
+                        int count = 1;
+                    }
+                    @foreach (var item in Model.OrderDetailsList)
+                    {
+                        <tr>
+                            <!-- # -->
+                            <td class="ps-4 egift-sub">
+                                @count
+                            </td>
+
+                            <!-- Product Name -->
+                            <td>
+                                <div class="egift-name">
+                                    @item.ProductName
+                                </div>
+                            </td>
+
+                            <!-- Unit Price -->
+                            <td>
+                                <div class="egift-name">
+                                    @item.UnitPrice
+                                </div>
+                            </td>
+
+                            <!-- Quantity -->
+                            <td>
+                                <div class="egift-name">
+                                    @item.Quantity
+                                </div>
+                            </td>
+
+                            <!-- Discount -->
+                            <td>
+                                <div class="egift-name">
+                                    @item.Discount
+                                </div>
+                            </td>
+
+                            <!-- Tax -->
+                            <td>
+                                <div class="egift-name">
+                                    @item.Tax
+                                </div>
+                            </td>
+
+                            <!-- Net Amount -->
+                            <td>
+                                <div class="egift-name">
+                                    @item.NetAmount
+                                </div>
+                            </td>
+                        </tr>
+                        count++;
+                    }
+                </tbody>
+                <tfoot>
+                    <!-- Total Discount -->
+                    <tr>
+                        <td colspan="5"></td>
+                        <td class="text-end fw-bold">
+                            Total Discount:
+                        </td>
+                        <td class="fw-bold">
+                            @((Model.TotalDiscount ?? 0).ToString("N2"))
+                        </td>
+                    </tr>
+
+                    <!-- Total Tax -->
+                    <tr>
+                        <td colspan="5"></td>
+                        <td class="text-end fw-bold">
+                            Total Tax:
+                        </td>
+                        <td class="fw-bold">
+                            @((Model.TotalTax ?? 0).ToString("N2"))
+                        </td>
+                    </tr>
+
+                    <!-- Grand Total -->
+                    <tr>
+                        <td colspan="5"></td>
+                        <td class="text-end fw-bold">
+                            Grand Total:
+                        </td>
+                        <td class="fw-bold">
+                            @Model.TotalAmount.ToString("N2")
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/order.js" asp-append-version="true"></script>
+}

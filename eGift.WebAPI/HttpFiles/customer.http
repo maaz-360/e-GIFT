@@ -1,0 +1,71 @@
+@eGift_HostCustomer = http://localhost:5270
+@APIKey = n62p2wjy26ro0qy54n8o7kbiwho4nm9g
+
+
+
+### 
+GET {{eGift_HostCustomer}}/api/customer
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+
+###
+GET {{eGift_HostCustomer}}/api/customer/2
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+
+### 
+POST {{eGift_HostCustomer}}/api/customer
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 0,
+  "firstName": "Maaz",
+  "lastName": "Khan",
+  "dateofBirth": "2004-01-15T00:00:00",
+  "genderId": 1,
+  "mobile": "9876543210",
+  "email": "maaz@example.com",
+  "addressId": 1,
+  "isActive": true,
+  "profileImagePath": null,
+  "profileImageData": null,
+  "roleId": 1,
+  "isDefault": true,
+  "isDeleted": false,
+  "createdBy": 1,
+  "createdDate": "2026-08-11T00:00:00"
+}
+
+
+###
+PUT {{eGift_HostCustomer}}/api/customer/1
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 1,
+  "firstName": "Updated",
+  "lastName": "Customer",
+  "dateofBirth": "2004-01-15T00:00:00",
+  "genderId": 1,
+  "mobile": "9876543210",
+  "email": "updated@example.com",
+  "addressId": 1,
+  "isActive": true,
+  "profileImagePath": null,
+  "profileImageData": null,
+  "roleId": 1,
+  "isDefault": true,
+  "isDeleted": false,
+  "updatedBy": 1,
+  "updatedDate": "2026-08-11T00:00:00"
+}
+
+
+### 
+DELETE {{eGift_HostCustomer}}/api/customer/1?loginUserId=1&deletedDate=2026-08-11
+Accept: application/json
+X-API-Key: {{APIKey}}

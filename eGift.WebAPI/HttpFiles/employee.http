@@ -1,0 +1,63 @@
+@eGift_HostEmployee = http://localhost:5270
+@APIKey = n62p2wjy26ro0qy54n8o7kbiwho4nm9g
+
+###
+
+GET {{eGift_HostEmployee}}/api/employee
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+GET {{eGift_HostEmployee}}/api/employee/3
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+POST {{eGift_HostEmployee}}/api/employee
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "dateofBirth": "1995-05-15T00:00:00",
+  "genderId": 1,
+  "mobile": "9876543210",
+  "email": "john.doe@example.com",
+  "addressId": 1,
+  "isActive": true,
+  "profileImagePath": null,
+  "profileImageData": null,
+  "roleId": 1,
+  "isDefault": true
+}
+
+###
+
+PUT {{eGift_HostEmployee}}/api/employee/1
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 1,
+  "firstName": "Updated John",
+  "lastName": "Doe",
+  "dateofBirth": "1995-05-15T00:00:00",
+  "genderId": 1,
+  "mobile": "9876543210",
+  "email": "updated.john@example.com",
+  "addressId": 1,
+  "isActive": true,
+  "profileImagePath": null,
+  "profileImageData": null,
+  "roleId": 1,
+  "isDefault": true
+}
+
+###
+
+DELETE {{eGift_HostEmployee}}/api/employee/2?loginUserId=1&deletedDate=2026-08-11
+Accept: application/json
+X-API-Key: {{APIKey}}

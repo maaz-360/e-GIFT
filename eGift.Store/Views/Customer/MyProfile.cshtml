@@ -1,0 +1,169 @@
+@model eGift.Store.Models.ResponseViewModel.CustomerResponseViewModel
+
+@{
+    ViewData["Title"] = "My Profile";
+
+    var profileImage = !string.IsNullOrWhiteSpace(Model.ProfileImagePath)
+        ? Url.Action("Image","Customer",
+            new{fileName = System.IO.Path.GetFileName(Model.ProfileImagePath)}): null;
+}
+
+<link rel="stylesheet" href="~/css/myprofile.css" asp-append-version="true" />
+
+<div class="profile-page">
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <div class="profile-header-content">
+            <div class="profile-image-wrapper">
+                @if (!string.IsNullOrWhiteSpace(profileImage))
+                {<img src="@profileImage" alt="Profile Image" class="profile-image" />}
+                else
+                {
+                    <div class="profile-placeholder">
+                        <span>
+                            @Model.FirstName.FirstOrDefault()
+                            @Model.LastName.FirstOrDefault()
+                        </span>
+                    </div>
+                }
+            </div>
+
+            <div class="profile-header-info">
+                <h1>@Model.FirstName @Model.LastName</h1>
+
+                <p class="profile-email">@Model.Email</p>
+
+                <div class="profile-meta">
+                    <span><strong>Mobile:</strong>@Model.Mobile</span>
+                    <span><strong>Gender:</strong>@Model.GenderName</span>
+                </div>
+            </div>
+
+            <div class="profile-header-action">
+                <a asp-controller="Customer" asp-action="EditProfile" class="btn-edit-profile">
+                    Edit Profile
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Information -->
+    <div class="profile-content">
+
+        <!-- Personal Information -->
+        <div class="profile-card">
+            <div class="card-title">
+                <div>
+                    <h2>Personal Information</h2>
+                    <p>Your personal details</p>
+                </div>
+            </div>
+
+            <div class="information-grid">
+
+                <div class="information-item">
+                    <span class="information-label">First Name</span>
+                    <span class="information-value">@Model.FirstName</span>
+                </div>
+
+                <div class="information-item">
+                    <span class="information-label">Last Name</span>
+                    <span class="information-value">@Model.LastName</span>
+                </div>
+
+                <div class="information-item">
+                    <span class="information-label">Date of Birth</span>
+                    <span class="information-value">
+                        @Model.DateofBirth.ToString("dd MMMM yyyy")
+                    </span>
+                </div>
+
+                <div class="information-item">
+                    <span class="information-label">Age</span>
+                    <span class="information-value">@Model.Age years</span>
+                </div>
+
+                <div class="information-item">
+                    <span class="information-label">Gender</span>
+                    <span class="information-value">@Model.GenderName</span>
+                </div>
+
+                <div class="information-item"><span class="information-label">Mobile</span>
+                    <span class="information-value">@Model.Mobile</span>
+                </div>
+
+                <div class="information-item information-item-full">
+                    <span class="information-label">Email</span>
+                    <span class="information-value">@Model.Email</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Address -->
+        <div class="profile-card">
+
+            <div class="card-title">
+                <div>
+                    <h2>Address</h2>
+                    <p>Your saved address</p>
+                </div>
+            </div>
+
+            <div class="address-box">
+                @if (!string.IsNullOrWhiteSpace(Model.FullAddress))
+                {
+                    <span class="address-icon">⌖</span>
+
+                    <div>
+                        <span class="information-label">Current Address</span>
+                        <p class="address-text">@Model.FullAddress</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="empty-address">
+                        <span class="information-label">Address</span>
+                        <p>No address has been added yet.</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Account Information -->
+        <div class="profile-card">
+
+            <div class="card-title">
+                <div>
+                    <h2>Account Information</h2>
+                    <p>Your eGift account details</p>
+                </div>
+            </div>
+
+            <div class="information-grid">
+
+                <div class="information-item">
+                    <span class="information-label">Account Status</span>
+                    <span class="status-badge @(Model.IsActive ? "active" : "inactive")">
+                        @(Model.IsActive ? "Active" : "Inactive")
+                    </span>
+                </div>
+
+                <div class="information-item">
+                    <span class="information-label">Member Since</span>
+                    <span class="information-value">@Model.CreatedDate.ToString("dd MMMM yyyy")
+                    </span>
+                </div>
+
+                @if (Model.LastLogin.HasValue)
+                {
+                    <div class="information-item"><span class="information-label">Last Login</span>
+                        <span class="information-value">@Model.LastLogin.Value.ToString("dd MMMM yyyy, hh:mm tt")
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

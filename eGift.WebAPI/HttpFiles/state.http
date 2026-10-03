@@ -1,0 +1,54 @@
+@eGift_HostState = http://localhost:5270
+@APIKey = n62p2wjy26ro0qy54n8o7kbiwho4nm9g
+
+###
+
+GET {{eGift_HostState}}/api/state
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+GET {{eGift_HostState}}/api/state/3
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+POST {{eGift_HostState}}/api/state
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 0,
+  "stateCode": "MH",
+  "stateName": "Maharashtra",
+  "countryId": 1,
+  "description": "State in India",
+  "isDeleted": false,
+  "createdBy": 1,
+  "createdDate": "2026-08-12T00:00:00"
+}
+
+###
+
+PUT {{eGift_HostState}}/api/state/1
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "id": 1,
+  "stateCode": "MH",
+  "stateName": "Updated Maharashtra",
+  "countryId": 1,
+  "description": "Updated state description",
+  "isDeleted": false,
+  "updatedBy": 1,
+  "updatedDate": "2026-08-12T00:00:00"
+}
+
+###
+
+DELETE {{eGift_HostState}}/api/state/1?loginUserId=1&deletedDate=2026-08-12
+Accept: application/json
+X-API-Key: {{APIKey}}

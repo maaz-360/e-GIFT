@@ -1,0 +1,179 @@
+@using eGift.Admin.Helpers
+@model CategoryListViewModel
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<link rel="stylesheet" href="~/css/category.css" asp-append-version="true" />
+
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4 egift-page-header">
+
+        <div>
+            <h2 class="mb-1">Categories</h2>
+
+            <p class="mb-0">
+                @(Model?.CategoryList?.Count() ?? 0)
+                categor@(Model?.CategoryList?.Count() == 1 ? "y" : "ies")
+                total
+            </p>
+        </div>
+
+        <a asp-action="Create" class="btn btn-egift-primary d-flex align-items-center gap-2">
+
+            <i class="bi bi-plus-circle"></i>
+            Add Category
+
+        </a>
+
+    </div>
+
+
+    @if (Model != null &&
+         Model.CategoryList != null &&
+         Model.CategoryList.Any())
+    {
+        <div class="card egift-card">
+
+            <div class="table-responsive egift-table-scroll">
+
+                <table class="table egift-table mb-0">
+
+                    <thead>
+                        <tr>
+
+                            <th class="ps-4" style="width:50px;">
+                                #
+                            </th>
+
+                            <th>
+                                Category
+                            </th>
+
+                            @* <th>
+                                Description
+                            </th> *@
+
+                            <th>
+                                Created
+                            </th>
+
+                            <th class="text-center pe-4">
+                                Actions
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @{
+                            int count = 1;
+                        }
+
+                        @foreach (var category in Model.CategoryList)
+                        {
+                            <tr>
+
+                                <td class="ps-4 egift-sub">
+                                    @count
+                                </td>
+
+                                <td>
+                                    <div class="egift-name">
+                                        @category.CategoryName
+                                    </div>
+                                </td>
+
+                                @* <td>
+                                    @if (!string.IsNullOrWhiteSpace(category.Description))
+                                    {
+                                        @category.Description
+                                    }
+                                    else
+                                    {
+                                        <span class="egift-sub">
+                                            —
+                                        </span>
+                                    }
+                                </td> *@
+
+                                <td class="egift-sub">
+                                    @category.CreatedDate.ToDateString()
+                                </td>
+
+                                <td class="text-center pe-4">
+
+                                    <div class="btn-group" role="group">
+
+                                        <a asp-action="Details" asp-route-id="@category.Id" class="btn btn-sm btn-outline-info"
+                                           title="Details">
+                                            Details
+                                        </a>
+
+                                        <a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-sm btn-outline-primary"
+                                           title="Edit">
+                                            Edit
+                                        </a>
+
+                                        <form asp-action="Delete" asp-route-id="@category.Id" method="post"
+                                              class="d-inline delete-form" data-delete-name="category">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
+                                                Delete
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            count++;
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="card egift-card">
+
+            <div class="card-body text-center py-5">
+
+                <div class="egift-empty-icon">
+                    <i class="bi bi-tags"></i>
+                </div>
+
+                <h5 class="mb-1 fw-bold" style="color:var(--egift-text-dark);">
+                    No categories found
+                </h5>
+
+                <p class="egift-sub mb-3">
+                    Get started by adding your first category.
+                </p>
+
+                <a asp-action="Create" class="btn btn-egift-primary">
+
+                    <i class="bi bi-plus-circle me-1"></i>
+                    Add Category
+
+                </a>
+
+            </div>
+
+        </div>
+    }
+
+</div>

@@ -1,0 +1,265 @@
+@model eGift.Store.Models.ListViewModels.MyCartListViewModel
+
+@{
+    ViewData["Title"] = "My Cart";
+    var totalItems = Model?.MyCartList?.Sum(x => x.Quantity) ?? 0;
+    var totalAmount = Model?.MyCartList?.Sum(
+        x => x.ProductPrice * x.Quantity) ?? 0;
+}
+
+<link rel="stylesheet" href="~/css/mycart.css" asp-append-version="true" />
+
+<div class="cart-page">
+
+    @if (Model?.MyCartList == null || !Model.MyCartList.Any())
+    {
+        <!-- EMPTY CART -->
+        <div class="empty-cart">
+            <div style="max-width:420px; width:100%;">
+                <div class="empty-cart-icon">
+                    <i class="bi bi-cart-x"></i>
+                </div>
+                <h2 class="fw-bold mb-2">Your cart is empty</h2>
+                <p class="text-muted mb-4">
+                    Looks like you haven't added anything yet.
+                    <br />
+                    Let's find something you like!
+                </p>
+
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary rounded-pill px-4 py-2">
+                    <i class="bi bi-shop me-2"></i>
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- CART -->
+        <div class="container-fluid">
+            <div class="row g-4 pt-2">
+
+                <!-- LEFT COLUMN -->
+                <div class="col-lg-8">
+                    <div class="card cart-card">
+                        <!-- HEADER -->
+                        <div class="cart-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="fw-bold mb-0">
+                                    <i class="bi bi-cart3 me-2"></i>
+                                    Your Shopping Cart
+                                </h5>
+
+                                <div class="text-muted small">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Review your items
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CART ITEMS -->
+                        <div class="cart-items">
+                            <div class="row g-2">
+                                @foreach (var item in Model.MyCartList)
+                                {
+                                    var subtotal =
+                                        item.ProductPrice * item.Quantity;
+                                  
+                                    <div class="col-12">
+                                        <div class="cart-item">
+                                            <input type="hidden" class="product-id" value="@item.ProductId" />
+                                            <input type="hidden" class="product-quantity" value="@item.Quantity" />
+                                            <input type="hidden" class="product-price" value="@item.ProductPrice" />
+                                            <input type="hidden" class="product-net-amount" value="@subtotal" />
+                                            <div class="d-flex align-items-center gap-3">
+
+                                                <!-- PRODUCT IMAGE -->
+                                                <div class="flex-shrink-0">
+
+                                                    @if (!string.IsNullOrEmpty(item.ProductImagePath))
+                                                    {
+                                                        <img src="@Url.Action(
+                                                        "Image",
+                                                        "Home",
+                                                        new{fileName = System.IO.Path.GetFileName(item.ProductImagePath)})"
+                                                             alt="@item.ProductName" class="cart-product-image" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="cart-product-placeholder">
+                                                            <i class="bi bi-image fs-3 text-muted"></i>
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                                <!-- PRODUCT DETAILS -->
+                                                <div class="flex-grow-1">
+                                                    <div class="row align-items-center g-3">
+
+                                                        <!-- NAME -->
+                                                        <div class="col-md-4">
+                                                            <h6 class="mb-1 fw-semibold">
+                                                                @item.ProductName
+                                                            </h6>
+
+                                                            @if (!string.IsNullOrWhiteSpace(item.ShortDescription))
+                                                            {
+                                                                <div class="text-muted small">
+                                                                    @item.ShortDescription
+                                                                </div>
+                                                            }
+                                                            <div class="text-muted small mt-1">
+                                                                ₹@item.ProductPrice.ToString("N2") each
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- QUANTITY -->
+                                                        <div class="col-md-3">
+                                                            <label class="form-label small text-muted mb-1">
+                                                                Quantity
+                                                            </label>
+                                                            <div class="input-group input-group-sm">
+
+                                                                <button type="button"
+                                                                        class="btn btn-outline-secondary cart-quantity-minus"
+                                                                        data-cart-id="@item.Id" data-product-id="@item.ProductId"
+                                                                        data-quantity="@item.Quantity">
+
+                                                                    <i class="bi bi-dash"></i>
+                                                                </button>
+
+                                                                <input type="text"
+                                                                       class="form-control text-center cart-quantity"
+                                                                       value="@item.Quantity" readonly data-cart-id="@item.Id" />
+
+                                                                <button type="button"
+                                                                        class="btn btn-outline-secondary cart-quantity-plus"
+                                                                        data-cart-id="@item.Id" data-product-id="@item.ProductId"
+                                                                        data-quantity="@item.Quantity">
+                                                                    <i class="bi bi-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- SUBTOTAL -->
+                                                        <div class="col-md-3">
+                                                            <label class="form-label small text-muted mb-1">Subtotal</label>
+
+                                                            <div class="fw-bold text-primary fs-6 cart-item-subtotal"
+                                                                 data-cart-id="@item.Id">
+                                                                ₹@subtotal.ToString("N2")
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- REMOVE -->
+                                                        <div class="col-md-2">
+                                                            <button type="button"
+                                                                    class="btn btn-outline-danger btn-sm w-100 remove-cart-item"
+                                                                    data-cart-id="@item.Id" title="Remove item">
+                                                                <i class="bi bi-trash3"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- CART TOTAL -->
+                        <div class="cart-total">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold h6 mb-0">
+                                    <i class="bi bi-calculator me-2"></i>
+                                    Cart Total
+                                    (<span id="cart-total-items">@totalItems</span> items)
+                                </span>
+
+                                <span class="fw-bold text-primary h5 mb-0" id="cart-total-amount">
+                                    ₹@totalAmount.ToString("N2")
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- ACTION BUTTONS -->
+                        <div class="cart-actions">
+                            <div class="d-flex gap-3 justify-content-center">
+                                <a asp-controller="Home" asp-action="Index"
+                                   class="btn btn-outline-secondary btn-sm px-4 rounded-pill">
+                                    <i class="bi bi-arrow-left me-2"></i>
+                                    Continue Shopping
+                                </a>
+
+                                <button type="button" id="clear-cart"
+                                        class="btn btn-outline-danger btn-sm px-4 rounded-pill">
+                                    <i class="bi bi-trash3 me-2"></i>
+                                    Clear Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN -->
+                <div class="col-lg-4">
+                    <div class="card checkout-card">
+                        <div class="p-4">
+                            <h5 class="fw-bold mb-3">
+                                <i class="bi bi-receipt me-2"></i>
+                                Order Summary
+                            </h5>
+
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Total Items</span>
+                                <span class="fw-semibold" id="summary-total-items">
+                                    @totalItems
+                                </span>
+                            </div>
+
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="text-muted">Subtotal</span>
+                                <span class="fw-semibold" id="summary-subtotal">
+                                    ₹@totalAmount.ToString("N2")
+                                </span>
+                            </div>
+
+                            <hr />
+                            <div class="d-flex justify-content-between mb-4">
+                                <span class="fw-bold">Total</span>
+                                <span class="fw-bold text-primary fs-5" id="summary-total">
+                                    ₹@totalAmount.ToString("N2")
+                                </span>
+                            </div>
+
+                            <!-- CHECKOUT BUTTON -->
+                            <div class="d-grid">
+                                <button  class="btn btn-primary btn-lg place-order">
+                                    <i class="bi bi-credit-card me-2"></i>
+                                    Place Order
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- INFO -->
+                        <div class="border-top p-4">
+                            <div class="alert alert-info small mb-0">
+                                <i class="bi bi-shield-check me-2"></i>
+                                Your cart is saved securely.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/mycart.js" asp-append-version="true"></script>
+    <script src="~/js/order.js" asp-append-version="true"></script>
+}

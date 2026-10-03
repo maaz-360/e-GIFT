@@ -1,0 +1,373 @@
+@model eGift.Store.Models.ResponseViewModel.ProductResponseViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+
+    var images = new List<string?>()
+    {
+        Model.ProductImagePath,
+        Model.PicturePath1,
+        Model.PicturePath2,
+        Model.PicturePath3,
+        Model.PicturePath4
+    }
+    .Where(x => !string.IsNullOrWhiteSpace(x))
+    .ToList();
+
+    var userName = Context.Session.GetString("UserName");
+
+ // Apply the discount to the original price to get the final price.
+    decimal originalPrice = Model.UnitPrice;
+    decimal sellingPrice = Model.UnitPrice;
+    decimal? youSave = null;
+
+    if (Model.Discount.HasValue && Model.Discount.Value > 0 && Model.Discount.Value <= 100)
+    {
+        var discountAmount = originalPrice * (Model.Discount.Value / 100m);
+        sellingPrice = originalPrice - discountAmount;
+        youSave = discountAmount;
+    }
+}
+
+<link rel="stylesheet" href="~/css/product-details.css" asp-append-version="true" />
+
+<div class="container product-details-page">
+
+   <!-- BACK BUTTON -->
+    <div class="mb-3">
+        <a asp-controller="Home" asp-action="Index" 
+           class="btn btn-outline-secondary btn-sm rounded-pill">
+            <i class="bi bi-arrow-left me-2"></i>
+            Back to Products
+        </a>
+    </div>
+
+    <div class="product-details-card">
+        <div class="row g-5">
+            <!-- LEFT: IMAGE GALLERY -->
+            <div class="col-lg-5">
+                <div class="product-gallery">
+                    <!-- THUMBNAILS -->
+                    @if (images.Count > 1)
+                    {
+                        <div class="product-thumbnails">
+                            @for (int i = 0; i < images.Count; i++)
+                            {
+                                var imageFileName = System.IO.Path.GetFileName(images[i]);
+
+                                <button type="button"
+                                        class="product-thumbnail @(i == 0 ? "active" : "")"
+                                        data-index="@i"
+                                        data-image="@Url.Action("Image", "Home", new { fileName = imageFileName })">
+
+                                    <img src="@Url.Action("Image", "Home", new { fileName = imageFileName })"
+                                         alt="@Model.Name - image @(i + 1)" />
+                                </button>
+                            }
+                        </div>
+                    }
+
+                    <!-- MAIN IMAGE / SLIDER -->
+                    <div class="product-main-wrap">
+                        <div class="product-main-image" id="mainImageZoom">
+                            @if (images.Any())
+                            {
+                                var firstImage = System.IO.Path.GetFileName(images.First());
+
+                                @if (Model.Discount.HasValue && Model.Discount.Value > 0)
+                                {
+                                    <span class="pdp-discount-ribbon">@Model.Discount.Value.ToString("N0")% OFF</span>
+                                }
+
+                                <button type="button" class="pdp-wishlist-btn" id="wishlistBtn" aria-label="Add to wishlist">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+
+                                <img id="mainProductImage"
+                                     src="@Url.Action("Image", "Home", new { fileName = firstImage })"
+                                     alt="@Model.Name" />
+
+                                @if (images.Count > 1)
+                                {
+                                    <button type="button" class="pdp-slide-arrow pdp-slide-prev" id="prevImage" aria-label="Previous image">
+                                        <i class="bi bi-chevron-left"></i>
+                                    </button>
+                                    <button type="button" class="pdp-slide-arrow pdp-slide-next" id="nextImage" aria-label="Next image">
+                                        <i class="bi bi-chevron-right"></i>
+                                    </button>
+                                }
+                            }
+                            else
+                            {
+                                <div class="product-details-placeholder">
+                                    <i class="bi bi-image"></i>
+                                    <span>No image available</span>
+                                </div>
+                            }
+                        </div>
+
+                        @if (images.Count > 1)
+                        {
+                            <div class="pdp-dots" id="pdpDots">
+                                @for (int i = 0; i < images.Count; i++)
+                                {
+                                    <span class="pdp-dot @(i == 0 ? "active" : "")" data-index="@i"></span>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- TRUST BADGES -->
+                <div class="pdp-trust-row">
+                    <div class="pdp-trust-item">
+                        <i class="bi bi-truck"></i>
+                        <span>Free Delivery</span>
+                    </div>
+                    <div class="pdp-trust-item">
+                        <i class="bi bi-arrow-repeat"></i>
+                        <span>Easy 7-Day Returns</span>
+                    </div>
+                    <div class="pdp-trust-item">
+                        <i class="bi bi-shield-check"></i>
+                        <span>Secure Payment</span>
+                    </div>
+                    <div class="pdp-trust-item">
+                        <i class="bi bi-patch-check"></i>
+                        <span>Genuine Product</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- RIGHT: PRODUCT INFORMATION -->
+            <div class="col-lg-7">
+                <div class="product-information">
+                    <!-- PRODUCT NAME -->
+                    <h1 class="product-details-name">
+                        @Model.Name
+                    </h1>
+
+                    <!-- AVAILABILITY PILL -->
+                    <div class="mb-2">
+                        @if (Model.ProductAvailable > 0)
+                        {
+                            <span class="pdp-stock-pill in-stock">
+                                <i class="bi bi-check-circle-fill me-1"></i> In Stock
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="pdp-stock-pill out-stock">
+                                <i class="bi bi-x-circle-fill me-1"></i> Out of Stock
+                            </span>
+                        }
+                        <span class="pdp-stock-units">@Model.UnitInStock units left</span>
+                    </div>
+
+                    <!-- SHORT DESCRIPTION -->
+                    @if (!string.IsNullOrWhiteSpace(Model.ShortDescription))
+                    {
+                        <p class="product-details-short-description">
+                            @Model.ShortDescription
+                        </p>
+                    }
+
+                    <hr />
+
+                    <!-- PRICE -->
+                    <div class="pdp-price-block">
+                        <div class="pdp-price-row">
+                            <span class="product-details-price">₹@sellingPrice.ToString("N2")</span>
+
+                            @if (youSave.HasValue)
+                            {
+                                <span class="pdp-original-price">₹@originalPrice.ToString("N2")</span>
+                                <span class="pdp-discount-pct">@Model.Discount!.Value.ToString("N0")% off</span>
+                            }
+                        </div>
+
+                        @if (youSave.HasValue)
+                        {
+                            <div class="pdp-you-save">
+                                You save ₹@youSave.Value.ToString("N2")
+                            </div>
+                        }
+                        <div class="pdp-tax-note">Inclusive of all taxes</div>
+                    </div>
+
+                    <hr />
+
+                    <!-- PRODUCT INFORMATION -->
+                    <div class="product-info-list">
+                        <div class="product-info-row">
+                            <span><i class="bi bi-tag me-2"></i>Category</span>
+                            <strong>@Model.CategoryName</strong>
+                        </div>
+
+                        <div class="product-info-row">
+                            <span><i class="bi bi-bookmark me-2"></i>Sub Category</span>
+                            <strong>@Model.SubCategoryName</strong>
+                        </div>
+
+                        @if (!string.IsNullOrWhiteSpace(Model.SizeName))
+                        {
+                            <div class="product-info-row">
+                                <span><i class="bi bi-rulers me-2"></i>Size</span>
+                                <strong>@Model.SizeName</strong>
+                            </div>
+                        }
+
+                        <div class="product-info-row">
+                            <span><i class="bi bi-box-seam me-2"></i>Quantity Per Unit</span>
+                            <strong>@Model.QuantityPerUnit</strong>
+                        </div>
+
+                        <div class="product-info-row">
+                            <span><i class="bi bi-stack me-2"></i>Units in Stock</span>
+                            <strong>@Model.UnitInStock</strong>
+                        </div>
+                    </div>
+
+                    <!-- QUANTITY + ACTIONS -->
+                    @if (Model.ProductAvailable > 0)
+                    {
+                        <div class="pdp-qty-row">
+                            <span class="pdp-qty-label">Quantity</span>
+                            <div class="pdp-qty-stepper">
+                                <button type="button" class="pdp-qty-btn" id="qtyMinus" aria-label="Decrease quantity">
+                                    <i class="bi bi-dash"></i>
+                                </button>
+                                <input type="text" class="pdp-qty-input" id="qtyValue" value="1" readonly
+                                       data-max-stock="@(Model.UnitInStock > 0 ? Model.UnitInStock : 1)" />
+                                <button type="button" class="pdp-qty-btn" id="qtyPlus" aria-label="Increase quantity">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="product-details-actions">
+
+                            @if (!string.IsNullOrEmpty(userName))
+                            {
+                                <button type="button"
+                                        class="btn btn-pdp-cart add-to-cart"
+                                        data-product-id="@Model.Id"
+                                        data-qty-source="#qtyValue">
+
+                                    <i class="bi bi-cart-plus me-2"></i>
+                                    Add to Cart
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button"
+                                        class="btn btn-pdp-cart"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#loginModal">
+
+                                    <i class="bi bi-cart-plus me-2"></i>
+                                    Add to Cart
+                                </button>
+
+                                <button type="button"
+                                        class="btn btn-pdp-buy"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#loginModal">
+
+                                    <i class="bi bi-lightning-charge-fill me-2"></i>
+                                    Buy Now
+                                </button>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-circle me-2"></i>
+                            This product is currently out of stock.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- DESCRIPTION / SPECIFICATIONS TABS -->
+        @if (!string.IsNullOrWhiteSpace(Model.LongDescription))
+        {
+            <div class="pdp-tabs-section">
+
+                <ul class="nav pdp-tabs" id="pdpTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="pdp-tab-btn active" id="desc-tab" data-bs-toggle="tab"
+                                data-bs-target="#desc-pane" type="button" role="tab">
+                            Description
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="pdp-tab-btn" id="specs-tab" data-bs-toggle="tab"
+                                data-bs-target="#specs-pane" type="button" role="tab">
+                            Specifications
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content pdp-tab-content">
+
+                    <div class="tab-pane fade show active" id="desc-pane" role="tabpanel">
+                        <p>@Model.LongDescription</p>
+                    </div>
+
+                    <div class="tab-pane fade" id="specs-pane" role="tabpanel">
+                        <table class="pdp-specs-table">
+                            <tbody>
+                                <tr><td>Category</td><td>@Model.CategoryName</td></tr>
+                                <tr><td>Sub Category</td><td>@Model.SubCategoryName</td></tr>
+                                @if (!string.IsNullOrWhiteSpace(Model.SizeName))
+                                {
+                                    <tr><td>Size</td><td>@Model.SizeName</td></tr>
+                                }
+                                <tr><td>Quantity Per Unit</td><td>@Model.QuantityPerUnit</td></tr>
+                                <tr><td>Units in Stock</td><td>@Model.UnitInStock</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- MOBILE STICKY ACTION BAR -->
+@if (Model.ProductAvailable > 0)
+{
+    <div class="pdp-sticky-bar">
+        <div class="pdp-sticky-price">
+            ₹@sellingPrice.ToString("N2")
+            @if (youSave.HasValue)
+            {
+                <span class="pdp-sticky-original">₹@originalPrice.ToString("N2")</span>
+            }
+        </div>
+        @if (!string.IsNullOrEmpty(userName))
+        {
+            <button type="button" class="btn btn-pdp-cart btn-sm add-to-cart" data-product-id="@Model.Id" data-qty-source="#qtyValue">
+                <i class="bi bi-cart-plus me-1"></i> Add to Cart
+            </button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-pdp-cart btn-sm" data-bs-toggle="modal" data-bs-target="#loginModal">
+                <i class="bi bi-cart-plus me-1"></i> Add to Cart
+            </button>
+        }
+    </div>
+}
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/product-details.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,184 @@
+@model SignInViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+
+<div class="login-page">
+
+    <!-- Left Section -->
+    <div class="login-left">
+
+        <div class="welcome-content">
+
+            <h1>Welcome to eGift</h1>
+
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+
+            <div class="welcome-line"></div>
+
+            <span>
+                Manage your account with ease.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- Right Section -->
+    <div class="login-right">
+
+        <!-- Decorative Circles -->
+        <div class="circle circle-one"></div>
+        <div class="circle circle-two"></div>
+
+
+        <!-- Login Card -->
+        <div class="login-card">
+
+            <div class="login-header">
+
+                <h1>Hello!</h1>
+
+                <p>
+                    Login in to get started
+                </p>
+
+            </div>
+
+
+            <form asp-controller="Account" asp-action="Login" method="post">
+
+
+
+                <!-- Username -->
+                <div class="form-group">
+
+                    <label asp-for="UserName">
+                        User Name
+                    </label>
+
+                    <input asp-for="UserName" class="login-input" placeholder="Enter your username"
+                           autocomplete="username" />
+
+                    <span asp-validation-for="UserName" class="validation-error">
+                    </span>
+
+                </div>
+
+
+                <!-- Password -->
+                <div class="form-group">
+
+                    <label asp-for="Password">
+                        Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input asp-for="Password" id="passwordInput" type="password" class="login-input"
+                               placeholder="Enter your password" autocomplete="current-password" />
+
+                        <button type="button" class="password-toggle" id="passwordToggle">
+
+                            Show
+
+                        </button>
+
+                    </div>
+
+                    <span asp-validation-for="Password" class="validation-error">
+                    </span>
+
+                </div>
+
+
+                <!-- Remember Me -->
+                <div class="login-options">
+
+                    <label class="remember-me">
+
+                        <input asp-for="RememberMe" />
+
+                        <span>
+                            Remember me
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- Login -->
+                <button type="submit" class="login-button">
+
+                    Login
+
+                </button>
+
+
+                <!-- Forgot Password -->
+                <div class="forgot-password">
+
+                    <a href="#">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+            </form>
+
+
+            <div class="login-footer">
+
+                <span>© @DateTime.Now.Year</span>
+
+                <strong>eGift</strong>
+
+                <span>All rights reserved.</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+
+        const passwordInput =
+            document.getElementById("passwordInput");
+
+        const passwordToggle =
+            document.getElementById("passwordToggle");
+
+        passwordToggle.addEventListener("click", function () {
+
+            if (passwordInput.type === "password") {
+
+                passwordInput.type = "text";
+                passwordToggle.textContent = "Hide";
+
+            } else {
+
+                passwordInput.type = "password";
+                passwordToggle.textContent = "Show";
+
+            }
+
+        });
+
+    </script>
+}

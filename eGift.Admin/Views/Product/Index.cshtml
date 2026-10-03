@@ -1,0 +1,279 @@
+@using eGift.Admin.Helpers
+@model ProductListViewModel
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<link rel="stylesheet" href="~/css/employee.css" asp-append-version="true" />
+
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4 egift-page-header">
+
+        <div>
+            <h2 class="mb-1">Products</h2>
+
+            <p class="mb-0">
+                @(Model?.ProductList?.Count() ?? 0)
+                product@(Model?.ProductList?.Count() == 1 ? "" : "s") total
+            </p>
+        </div>
+
+        <a asp-action="Create"
+           class="btn btn-egift-primary d-flex align-items-center gap-2">
+
+            <i class="bi bi-plus-circle"></i>
+            Add Product
+
+        </a>
+
+    </div>
+
+
+    @if (Model != null &&
+         Model.ProductList != null &&
+         Model.ProductList.Any())
+    {
+        <div class="card egift-card">
+
+            <div class="table-responsive egift-table-scroll">
+
+                <table class="table egift-table mb-0">
+
+                    <thead>
+
+                        <tr>
+
+                            <th class="ps-4" style="width:50px;">
+                                #
+                            </th>
+
+                            <th>
+                                Product
+                            </th>
+
+                            <th>
+                                Category
+                            </th>
+
+                            <th>
+                                Sub Category
+                            </th>
+
+                            @* <th>
+                                Size
+                            </th> *@
+
+                            <th>
+                                Unit Price
+                            </th>
+
+                            <th>
+                                Stock
+                            </th>
+
+                            <th>
+                                Available
+                            </th>
+
+                            <th>
+                                Created
+                            </th>
+
+                            <th class="text-center pe-4">
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @{
+                            int count = 1;
+                        }
+
+                        @foreach (var product in Model.ProductList)
+                        {
+                            <tr>
+
+                                <td class="ps-4 egift-sub">
+                                    @count
+                                </td>
+
+
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+
+                                       
+
+                                        <div class="egift-name">
+                                            @product.Name
+                                        </div>
+
+                                    </div>
+                                </td>
+
+
+                                <td>
+                                    @product.CategoryName
+                                </td>
+
+
+                                <td>
+                                    @product.SubCategoryName
+                                </td>
+
+
+                                @* <td>
+                                    @(product.SizeName ?? "-")
+                                </td> *@
+
+
+                                <td>
+                                    @product.UnitPrice.ToString("0.00")
+                                </td>
+
+
+                                <td>
+                                    @product.UnitInStock
+                                </td>
+
+
+                                <td>
+
+                                    @if (product.ProductAvailable > 0)
+                                    {
+                                        <span class="badge-egift-active">
+                                            <i class="bi bi-check-circle-fill me-1"></i>
+                                            Available
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge-egift-inactive">
+                                            <i class="bi bi-x-circle-fill me-1"></i>
+                                            Not Available
+                                        </span>
+                                    }
+
+                                </td>
+
+
+                                <td class="egift-sub">
+                                    @product.CreatedDate.ToDateString()
+                                </td>
+
+
+                                <!-- Actions -->
+
+                                <td class="text-center pe-4">
+
+                                    <div class="btn-group" role="group">
+
+                                        <a asp-action="Details"
+                                           asp-route-id="@product.Id"
+                                           class="btn btn-sm btn-outline-info"
+                                           title="Details">
+
+                                            Details
+
+                                        </a>
+
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@product.Id"
+                                           class="btn btn-sm btn-outline-primary"
+                                           title="Edit">
+
+                                            Edit
+
+                                        </a>
+
+
+                                        <form asp-action="Delete"
+                                              asp-route-id="@product.Id"
+                                              method="post"
+                                              class="d-inline delete-form"
+                                              data-delete-name="product">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-outline-danger"
+                                                    title="Delete">
+
+                                                Delete
+
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            count++;
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="card egift-card">
+
+            <div class="card-body text-center py-5">
+
+                <div class="egift-empty-icon">
+                    <i class="bi bi-box-seam"></i>
+                </div>
+
+                <h5 class="mb-1 fw-bold"
+                    style="color:var(--egift-text-dark);">
+
+                    No products found
+
+                </h5>
+
+                <p class="egift-sub mb-3">
+
+                    Get started by adding your first product.
+
+                </p>
+
+                <a asp-action="Create"
+                   class="btn btn-egift-primary">
+
+                    <i class="bi bi-plus-circle me-1"></i>
+                    Add Product
+
+                </a>
+
+            </div>
+
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync(
+            "_ValidationScriptsPartial");
+    }
+
+    <script src="~/js/product.js" asp-append-version="true">
+    </script>
+}

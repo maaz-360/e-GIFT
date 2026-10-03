@@ -1,0 +1,281 @@
+/* ================================
+   Product Grid
+================================ */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 30px;
+}
+
+
+/* ================================
+   Product Card
+================================ */
+
+.product-card {
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 14px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.10);
+    border-color: #dddddd;
+}
+
+
+/* ================================
+   Product Image
+================================ */
+
+.product-image-container {
+    width: 100%;
+    height: 230px;
+    background: #f7f7f7;
+    overflow: hidden;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    transition: transform 0.35s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
+}
+
+
+/* ================================
+   Image Placeholder
+================================ */
+
+.product-image-placeholder {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: #999999;
+    gap: 6px;
+}
+
+.product-image-placeholder i {
+    font-size: 40px;
+}
+
+
+/* ================================
+   Product Content
+================================ */
+
+.product-content {
+    padding: 18px;
+
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+}
+
+
+/* ================================
+   Product Name
+================================ */
+
+.product-name {
+    font-size: 18px;
+    font-weight: 600;
+
+    margin: 0 0 8px;
+
+    color: #222222;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* ================================
+   Description
+================================ */
+
+.product-description {
+    font-size: 14px;
+    color: #777777;
+
+    line-height: 1.5;
+
+    margin: 0 0 18px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+
+/* ================================
+   Bottom Section
+================================ */
+
+.product-bottom {
+    margin-top: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+
+/* ================================
+   Price
+================================ */
+
+.product-price {
+    font-size: 20px;
+    font-weight: 700;
+
+    color: #222222;
+
+    white-space: nowrap;
+}
+
+
+/* ================================
+   Add To Cart
+================================ */
+
+.add-to-cart {
+    border: none;
+
+    padding: 9px 14px;
+
+    border-radius: 8px;
+
+    background: #222222;
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.add-to-cart:hover {
+    background: #000000;
+    transform: translateY(-1px);
+}
+
+.add-to-cart i {
+    font-size: 15px;
+}
+
+.add-to-cart-login {
+    border: none;
+
+    padding: 9px 14px;
+
+    border-radius: 8px;
+
+    background: #222222;
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.add-to-cart-login:hover {
+    background: #000000;
+    transform: translateY(-1px);
+}
+
+.add-to-cart-login i {
+    font-size: 15px;
+}
+
+
+/* ================================
+   Tablet
+================================ */
+
+@media (max-width: 1100px) {
+
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+
+/* ================================
+   Small Tablet
+================================ */
+
+@media (max-width: 800px) {
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+}
+
+
+/* ================================
+   Mobile
+================================ */
+
+@media (max-width: 500px) {
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product-image-container {
+        height: 250px;
+    }
+
+}

@@ -1,0 +1,493 @@
+@model ProductViewModel
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>Edit Product</h2>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Back to List
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h5 class="mb-0">
+                Product Information
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="Id" />
+
+                <!-- Existing Image Paths -->
+                <input type="hidden" asp-for="ProductImagePath" />
+                <input type="hidden" asp-for="PicturePath1" />
+                <input type="hidden" asp-for="PicturePath2" />
+                <input type="hidden" asp-for="PicturePath3" />
+                <input type="hidden" asp-for="PicturePath4" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3">
+                </div>
+
+                <div class="row">
+
+                    <!-- Product Name -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Name" class="form-label">
+                        </label>
+
+                        <input asp-for="Name" class="form-control" placeholder="Enter product name" />
+
+                        <span asp-validation-for="Name" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Category -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="CategoryId" class="form-label">
+                            Category
+                        </label>
+
+                        <select asp-for="CategoryId" asp-items="Model.Categories" class="form-select">
+
+                            <option value="">
+                                -- Select Category --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="CategoryId" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Sub Category -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="SubCategoryId" class="form-label">
+                            Sub Category
+                        </label>
+
+                        <select asp-for="SubCategoryId" asp-items="Model.SubCategories" class="form-select">
+
+                            <option value="">
+                                -- Select Sub Category --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="SubCategoryId" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Quantity Per Unit -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="QuantityPerUnit" class="form-label">
+                        </label>
+
+                        <input asp-for="QuantityPerUnit" type="number" class="form-control"
+                               placeholder="Enter quantity per unit" />
+
+                        <span asp-validation-for="QuantityPerUnit" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Unit Price -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="UnitPrice" class="form-label">
+                        </label>
+
+                        <input asp-for="UnitPrice" type="number" step="0.01" class="form-control"
+                               placeholder="Enter unit price" />
+
+                        <span asp-validation-for="UnitPrice" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Size -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="SizeId" class="form-label">
+                            Size
+                        </label>
+
+                        <select asp-for="SizeId" asp-items="Model.Sizes" class="form-select">
+
+                            <option value="">
+                                -- Select Size --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="SizeId" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Discount -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Discount" class="form-label">
+                        </label>
+
+                        <input asp-for="Discount" type="number" step="0.01" class="form-control"
+                               placeholder="Enter discount" />
+
+                        <span asp-validation-for="Discount" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Unit In Stock -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="UnitInStock" class="form-label">
+                        </label>
+
+                        <input asp-for="UnitInStock" type="number" class="form-control"
+                               placeholder="Enter units in stock" />
+
+                        <span asp-validation-for="UnitInStock" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Unit In Order -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="UnitInOrder" class="form-label">
+                        </label>
+
+                        <input asp-for="UnitInOrder" type="number" class="form-control"
+                               placeholder="Enter units in order" />
+
+                        <span asp-validation-for="UnitInOrder" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Product Available -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="ProductAvailable" class="form-label">
+                        </label>
+
+                        <input asp-for="ProductAvailable" type="number" class="form-control"
+                               placeholder="Enter available quantity" />
+
+                        <span asp-validation-for="ProductAvailable" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Short Description -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="ShortDescription" class="form-label">
+                        </label>
+
+                        <textarea asp-for="ShortDescription" class="form-control" rows="3"
+                                  placeholder="Enter short description"></textarea>
+
+                        <span asp-validation-for="ShortDescription" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Long Description -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="LongDescription" class="form-label">
+                        </label>
+
+                        <textarea asp-for="LongDescription" class="form-control" rows="3"
+                                  placeholder="Enter long description"></textarea>
+
+                        <span asp-validation-for="LongDescription" class="text-danger">
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Product Images -->
+
+                <hr />
+
+                <h5 class="mb-3">
+                    Product Images
+                </h5>
+
+                <div class="row">
+
+
+                    <!-- Main Product Image -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label asp-for="ProductImage" class="form-label">
+                            Product Image
+                        </label>
+
+                        @if (!string.IsNullOrWhiteSpace(Model.ProductImagePath))
+                        {
+                            <div class="mb-2">
+
+                                <img src="@Url.Action(
+                                                                         "Image",
+                                                                         "Product",
+                                                                         new
+                                                                         {
+                                                                             fileName = System.IO.Path.GetFileName(
+                                                                                 Model.ProductImagePath)
+                                                                         })" alt="Product Image" class="img-thumbnail"
+                                     style="width:150px;height:150px;object-fit:cover;" />
+
+                            </div>
+                        }
+
+                        <input asp-for="ProductImage" type="file" class="form-control" accept="image/*" />
+
+                        <small class="text-muted">
+                            Leave empty to keep the existing image.
+                        </small>
+
+                        <span asp-validation-for="ProductImage" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Picture 1 -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label asp-for="Picture1" class="form-label">
+                            Picture 1
+                        </label>
+
+                        @if (!string.IsNullOrWhiteSpace(Model.PicturePath1))
+                        {
+                            <div class="mb-2">
+
+                                <img src="@Url.Action(
+                                                                         "Image",
+                                                                         "Product",
+                                                                         new
+                                                                         {
+                                                                             fileName = System.IO.Path.GetFileName(
+                                                                                 Model.PicturePath1)
+                                                                         })" alt="Picture 1" class="img-thumbnail"
+                                     style="width:150px;height:150px;object-fit:cover;" />
+
+                            </div>
+                        }
+
+                        <input asp-for="Picture1" type="file" class="form-control" accept="image/*" />
+
+                        <small class="text-muted">
+                            Leave empty to keep the existing image.
+                        </small>
+
+                        <span asp-validation-for="Picture1" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Picture 2 -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label asp-for="Picture2" class="form-label">
+                            Picture 2
+                        </label>
+
+                        @if (!string.IsNullOrWhiteSpace(Model.PicturePath2))
+                        {
+                            <div class="mb-2">
+
+                                <img src="@Url.Action(
+                                                                         "Image",
+                                                                         "Product",
+                                                                         new
+                                                                         {
+                                                                             fileName = System.IO.Path.GetFileName(
+                                                                                 Model.PicturePath2)
+                                                                         })" alt="Picture 2" class="img-thumbnail"
+                                     style="width:150px;height:150px;object-fit:cover;" />
+
+                            </div>
+                        }
+
+                        <input asp-for="Picture2" type="file" class="form-control" accept="image/*" />
+
+                        <small class="text-muted">
+                            Leave empty to keep the existing image.
+                        </small>
+
+                        <span asp-validation-for="Picture2" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Picture 3 -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label asp-for="Picture3" class="form-label">
+                            Picture 3
+                        </label>
+
+                        @if (!string.IsNullOrWhiteSpace(Model.PicturePath3))
+                        {
+                            <div class="mb-2">
+
+                                <img src="@Url.Action(
+                                                                         "Image",
+                                                                         "Product",
+                                                                         new
+                                                                         {
+                                                                             fileName = System.IO.Path.GetFileName(
+                                                                                 Model.PicturePath3)
+                                                                         })" alt="Picture 3" class="img-thumbnail"
+                                     style="width:150px;height:150px;object-fit:cover;" />
+
+                            </div>
+                        }
+
+                        <input asp-for="Picture3" type="file" class="form-control" accept="image/*" />
+
+                        <small class="text-muted">
+                            Leave empty to keep the existing image.
+                        </small>
+
+                        <span asp-validation-for="Picture3" class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Picture 4 -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label asp-for="Picture4" class="form-label">
+                            Picture 4
+                        </label>
+
+                        @if (!string.IsNullOrWhiteSpace(Model.PicturePath4))
+                        {
+                            <div class="mb-2">
+
+                                <img src="@Url.Action(
+                                                                         "Image",
+                                                                         "Product",
+                                                                         new
+                                                                         {
+                                                                             fileName = System.IO.Path.GetFileName(
+                                                                                 Model.PicturePath4)
+                                                                         })" alt="Picture 4" class="img-thumbnail"
+                                     style="width:150px;height:150px;object-fit:cover;" />
+
+                            </div>
+                        }
+
+                        <input asp-for="Picture4" type="file" class="form-control" accept="image/*" />
+
+                        <small class="text-muted">
+                            Leave empty to keep the existing image.
+                        </small>
+
+                        <span asp-validation-for="Picture4" class="text-danger">
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <hr />
+
+
+                <!-- Buttons -->
+
+                <div class="d-flex justify-content-end gap-2">
+
+                    <a asp-action="Index" class="btn btn-secondary">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="btn btn-primary">
+                        Update Product
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync(
+            "_ValidationScriptsPartial");
+    }
+
+    <script src="~/js/product.js" asp-append-version="true">
+    </script>
+}

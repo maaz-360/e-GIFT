@@ -1,0 +1,50 @@
+@eGift_HostSubCategory = http://localhost:5270
+@APIKey = n62p2wjy26ro0qy54n8o7kbiwho4nm9g
+
+###
+
+GET {{eGift_HostSubCategory}}/api/subcategory
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+GET {{eGift_HostSubCategory}}/api/subcategory/3
+Accept: application/json
+X-API-Key: {{APIKey}}
+
+###
+
+POST {{eGift_HostSubCategory}}/api/subcategory
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "categoryId": 4,
+  "subCategoryName": "Electronics Accessories",
+  "description": "Accessories for electronic products",
+  "isDeleted": false,
+  "createdBy": 1,
+  "createdDate": "2026-08-12T00:00:00"
+}
+
+###
+
+PUT {{eGift_HostSubCategory}}/api/subcategory/1
+Content-Type: application/json
+X-API-Key: {{APIKey}}
+
+{
+  "categoryId": 1,
+  "subCategoryName": "Updated Electronics Accessories",
+  "description": "Updated accessories description",
+  "isDeleted": false,
+  "updatedBy": 1,
+  "updatedDate": "2026-08-12T00:00:00"
+}
+
+###
+
+DELETE {{eGift_HostSubCategory}}/api/subcategory/4?loginUserId=1&deletedDate=2026-08-12
+Accept: application/json
+X-API-Key: {{APIKey}}

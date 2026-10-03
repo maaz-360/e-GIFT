@@ -1,0 +1,164 @@
+@using eGift.Admin.Helpers
+@model RoleListViewModel
+
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<link rel="stylesheet" href="~/css/country.css" asp-append-version="true" />
+
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4 egift-page-header">
+
+        <div>
+            <h2 class="mb-1">Roles</h2>
+
+            <p class="mb-0">
+                @(Model?.RoleList?.Count() ?? 0)
+                role@(Model?.RoleList?.Count() == 1 ? "" : "s") total
+            </p>
+        </div>
+
+        <a asp-action="Create" class="btn btn-egift-primary d-flex align-items-center gap-2">
+
+            <i class="bi bi-plus-circle"></i>
+            Add Role
+
+        </a>
+
+    </div>
+
+    @if (Model != null &&
+         Model.RoleList != null &&
+         Model.RoleList.Any())
+    {
+        <div class="card egift-card">
+
+            <div class="table-responsive egift-table-scroll">
+
+                <table class="table egift-table mb-0">
+
+                    <thead>
+                        <tr>
+
+                            <th class="ps-4" style="width:50px;">
+                                #
+                            </th>
+
+                            <th>
+                                Role Name
+                            </th>
+
+                        
+
+                            <th>
+                                Created
+                            </th>
+
+                            <th class="text-center pe-4">
+                                Actions
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @{
+                            int count = 1;
+                        }
+
+                        @foreach (var role in Model.RoleList)
+                        {
+                            <tr>
+
+                                <td class="ps-4 egift-sub">
+                                    @count
+                                </td>
+
+                                <td>
+                                    <div class="egift-name">
+                                        @role.RoleName
+                                    </div>
+                                </td>
+
+                                
+                                <td class="egift-sub">
+                                    @role.CreatedDate.ToDateString()
+                                </td>
+
+                                <!-- Actions -->
+                                <td class="text-center pe-4">
+
+                                    <div class="btn-group" role="group">
+
+                                        <a asp-action="Details" asp-route-id="@role.Id" class="btn btn-sm btn-outline-info"
+                                           title="Details">
+                                            Details
+                                        </a>
+
+                                        <a asp-action="Edit" asp-route-id="@role.Id" class="btn btn-sm btn-outline-primary"
+                                           title="Edit">
+                                            Edit
+                                        </a>
+
+                                        <form asp-action="Delete" asp-route-id="@role.Id" method="post"
+                                              class="d-inline delete-form" data-delete-name="role">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
+                                                Delete
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            count++;
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="card egift-card">
+
+            <div class="card-body text-center py-5">
+
+                <div class="egift-empty-icon">
+                    <i class="bi bi-person-badge"></i>
+                </div>
+
+                <h5 class="mb-1 fw-bold" style="color:var(--egift-text-dark);">
+                    No roles found
+                </h5>
+
+                <p class="egift-sub mb-3">
+                    Get started by adding your first role.
+                </p>
+
+                <a asp-action="Create" class="btn btn-egift-primary">
+
+                    <i class="bi bi-plus-circle me-1"></i>
+                    Add Role
+
+                </a>
+
+            </div>
+
+        </div>
+    }
+
+</div>

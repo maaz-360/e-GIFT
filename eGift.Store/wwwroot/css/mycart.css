@@ -1,0 +1,322 @@
+/* =========================================================
+   eGift.Store - My Cart
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   Cart Page
+   --------------------------------------------------------- */
+
+.cart-page {
+    min-height: calc(100vh - 100px);
+    padding: 20px;
+
+    background-color: #ffffff;
+}
+
+
+/* ---------------------------------------------------------
+   Main Cart Card
+   --------------------------------------------------------- */
+
+.cart-card {
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    background-color: #ffffff;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+
+    overflow: hidden;
+}
+
+
+/* ---------------------------------------------------------
+   Cart Header
+   --------------------------------------------------------- */
+
+.cart-header {
+    padding: 18px;
+
+    background-color: #ffffff;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.cart-header h5 {
+    color: #212529;
+}
+
+
+/* ---------------------------------------------------------
+   Cart Items Container
+   --------------------------------------------------------- */
+
+.cart-items {
+    padding: 16px;
+
+    max-height: 65vh;
+    overflow-y: auto;
+
+    background-color: #ffffff;
+}
+
+
+/* ---------------------------------------------------------
+   Individual Cart Item
+   --------------------------------------------------------- */
+
+.cart-item {
+    padding: 10px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.cart-item:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ---------------------------------------------------------
+   Product Image
+   --------------------------------------------------------- */
+
+.cart-product-image {
+    width: 75px;
+    height: 75px;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+}
+
+
+.cart-product-placeholder {
+    width: 75px;
+    height: 75px;
+
+    border-radius: 8px;
+
+    background-color: #f8f9fa;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ---------------------------------------------------------
+   Product Details
+   --------------------------------------------------------- */
+
+.cart-item h6 {
+    color: #212529;
+}
+
+.cart-item .text-muted {
+    color: #6c757d !important;
+}
+
+
+/* ---------------------------------------------------------
+   Quantity
+   --------------------------------------------------------- */
+
+.cart-item .input-group {
+    max-width: 170px;
+}
+
+.cart-item .form-control {
+    text-align: center;
+}
+
+
+/* ---------------------------------------------------------
+   Subtotal
+   --------------------------------------------------------- */
+
+.cart-item .text-primary {
+    color: #0d6efd !important;
+}
+
+
+/* ---------------------------------------------------------
+   Cart Total
+   --------------------------------------------------------- */
+
+.cart-total {
+    padding: 14px 16px;
+
+    background-color: #ffffff;
+
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.cart-total .h6 {
+    color: #212529;
+}
+
+
+/* ---------------------------------------------------------
+   Cart Actions
+   --------------------------------------------------------- */
+
+.cart-actions {
+    padding: 14px 16px;
+
+    background-color: #ffffff;
+
+    border-top: 1px solid #eeeeee;
+}
+
+
+/* ---------------------------------------------------------
+   Checkout / Order Summary
+   --------------------------------------------------------- */
+
+.checkout-card {
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+
+    background-color: #ffffff;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.checkout-card .p-4 {
+    background-color: #ffffff;
+}
+
+
+/* ---------------------------------------------------------
+   Empty Cart
+   --------------------------------------------------------- */
+
+.empty-cart {
+    min-height: 70vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background-color: #ffffff;
+}
+
+
+.empty-cart-icon {
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    border: 2px dashed var(--bs-primary);
+
+    background-color: #f8f9fa;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 25px;
+}
+
+
+.empty-cart-icon i {
+    font-size: 2.4rem;
+    color: var(--bs-primary);
+}
+
+
+/* ---------------------------------------------------------
+   Empty Cart Button
+   --------------------------------------------------------- */
+
+.empty-cart .btn {
+    padding: 10px 25px;
+}
+
+
+/* ---------------------------------------------------------
+   Scrollbar
+   --------------------------------------------------------- */
+
+.cart-items::-webkit-scrollbar {
+    width: 7px;
+}
+
+.cart-items::-webkit-scrollbar-track {
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.cart-items::-webkit-scrollbar-thumb {
+    background: #ced4da;
+    border-radius: 10px;
+}
+
+.cart-items::-webkit-scrollbar-thumb:hover {
+    background: #adb5bd;
+}
+
+
+/* ---------------------------------------------------------
+   Responsive
+   --------------------------------------------------------- */
+
+@media (max-width: 991.98px) {
+
+    .cart-page {
+        padding: 15px;
+    }
+
+    .cart-items {
+        max-height: none;
+    }
+
+    .checkout-card {
+        margin-top: 10px;
+    }
+}
+
+
+@media (max-width: 767.98px) {
+
+    .cart-page {
+        padding: 10px;
+    }
+
+    .cart-header {
+        padding: 15px;
+    }
+
+    .cart-header .text-muted {
+        display: none;
+    }
+
+    .cart-item {
+        padding: 12px;
+    }
+
+    .cart-product-image,
+    .cart-product-placeholder {
+        width: 65px;
+        height: 65px;
+    }
+
+    .cart-actions .d-flex {
+        flex-direction: column;
+    }
+
+    .cart-actions .btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,172 @@
+@using eGift.Admin.Helpers
+@model AddressResponseViewModel
+
+@{
+    ViewData["Title"] = "Address Details";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>Address Details</h2>
+
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                Edit
+            </a>
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Back to List
+            </a>
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h5 class="mb-0">
+                @Model.FullAddress
+            </h5>
+
+        </div>
+
+
+        <div class="card-body">
+
+            <!-- Street 1 -->
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Street 1
+                </div>
+
+                <div class="col-md-9">
+                    @Model.Street1
+                </div>
+
+            </div>
+
+
+            <!-- Street 2 -->
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Street 2
+                </div>
+
+                <div class="col-md-9">
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Street2))
+                    {
+                        @Model.Street2
+                    }
+                    else
+                    {
+                        <span class="text-muted">
+                            -
+                        </span>
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- Country -->
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Country
+                </div>
+
+                <div class="col-md-9">
+                    @Model.CountryName
+                </div>
+
+            </div>
+
+
+            <!-- State -->
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    State
+                </div>
+
+                <div class="col-md-9">
+                    @Model.StateName
+                </div>
+
+            </div>
+
+
+            <!-- City -->
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    City
+                </div>
+
+                <div class="col-md-9">
+                    @Model.CityName
+                </div>
+
+            </div>
+
+
+            <!-- Pin Code -->
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Pin Code
+                </div>
+
+                <div class="col-md-9">
+                    @Model.PinCode
+                </div>
+
+            </div>
+
+
+            <!-- Full Address -->
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Full Address
+                </div>
+
+                <div class="col-md-9">
+
+                    <div class=" rounded" style="background-color: var(--egift-blue-light);">
+
+                        @Model.FullAddress
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Created Date -->
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Created
+                </div>
+
+                <div class="col-md-9 text-muted">
+                    @Model.CreatedDate.ToDateString()
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

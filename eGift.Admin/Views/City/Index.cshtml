@@ -1,0 +1,159 @@
+@using eGift.Admin.Helpers
+@model CityListViewModel
+
+@{
+    ViewData["Title"] = "Cities";
+}
+
+<link rel="stylesheet" href="~/css/city.css" asp-append-version="true" />
+
+<div class="container-fluid py-4">
+
+    
+    <div class="d-flex justify-content-between align-items-center mb-4 egift-page-header">
+        <div>
+            <h2 class="mb-1">Cities</h2>
+            <p class="mb-0">
+                @(Model?.CityList?.Count() ?? 0)
+                cit@(Model?.CityList?.Count() == 1 ? "y" : "ies") total
+            </p>
+        </div>
+
+        <a asp-action="Create" class="btn btn-egift-primary d-flex align-items-center gap-2">
+            <i class="bi bi-plus-circle"></i>
+            Add City
+        </a>
+    </div>
+
+    @if (Model != null && Model.CityList != null && Model.CityList.Any())
+    {
+        <div class="card egift-card">
+
+            <div class="table-responsive egift-table-scroll">
+
+                <table class="table egift-table mb-0">
+
+                    <thead>
+                        <tr>
+                            <th class="ps-4" style="width:50px;">#</th>
+                            <th>City Code</th>
+                            <th>City Name</th>
+                            <th>State</th>
+                            <th>Country</th>
+                            <th>Created</th>
+                            <th class="text-center pe-4">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @{
+                            int count = 1;
+                        }
+
+                        @foreach (var city in Model.CityList)
+                        {
+                            <tr>
+
+                                <td class="ps-4 egift-sub">
+                                    @count
+                                </td>
+
+                                <td>
+                                    <div class="egift-name">
+                                        @city.CityCode
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="egift-name">
+                                        @city.CityName
+                                    </div>
+                                </td>
+
+                                <td>
+                                    @city.StateName
+                                </td>
+
+                                <td>
+                                    @city.CountryName
+                                </td>
+
+
+                                <td class="egift-sub">
+                                    @city.CreatedDate.ToDateString()
+                                </td>
+
+                                <td class="text-center pe-4">
+
+                                    <div class="btn-group" role="group">
+
+                                        <a asp-action="Details" asp-route-id="@city.Id" class="btn btn-sm btn-outline-info"
+                                           title="Details">
+                                            Details
+                                        </a>
+
+                                        <a asp-action="Edit" asp-route-id="@city.Id" class="btn btn-sm btn-outline-primary"
+                                           title="Edit">
+                                            Edit
+                                        </a>
+
+                                        <form asp-action="Delete" asp-route-id="@city.Id" method="post"
+                                              class="d-inline delete-form" data-delete-name="city">
+
+                                             
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
+                                                Delete
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            count++;
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card egift-card">
+
+            <div class="card-body text-center py-5">
+
+                <div class="egift-empty-icon">
+                    <i class="bi bi-buildings"></i>
+                </div>
+
+                <h5 class="mb-1 fw-bold" style="color:var(--egift-text-dark);">
+                    No cities found
+                </h5>
+
+                <p class="egift-sub mb-3">
+                    Get started by adding your first city.
+                </p>
+
+                <a asp-action="Create" class="btn btn-egift-primary">
+                    <i class="bi bi-plus-circle me-1"></i>
+                    Add City
+                </a>
+
+            </div>
+
+        </div>
+    }
+
+    
+</div>

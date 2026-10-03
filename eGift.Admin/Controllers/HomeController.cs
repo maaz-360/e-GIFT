@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using eGift.Admin.Models;
+using eGift.Admin.Models.ViewModels;
 
 namespace eGift.Admin.Controllers;
 
